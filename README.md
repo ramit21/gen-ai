@@ -1,7 +1,7 @@
 # gen-ai
 Generative AI concepts
 
-## AI fundamentals
+## Gen AI fundamentals
 
 **LLM flavours**:
 1. Open source models: eg. Data bricks dolly, Meta Llama, mosaic mpt, Hugging face, Stable Diffusion etc. More control on tuning the model to your use case, eg. tuning the model on sample data that is more specific to your use insead of a large data corpus. Cons: requires in house expertise, needs time to evaluate and tune the model.
