@@ -33,7 +33,7 @@ Generative AI concepts
 **Risks and challenges of using Gen AI**:
 1. Legal issues: 
 
-1.1. Privacy: current models don't have a 'forgetting' feature for personal use; models are used on large amounts of data that may include someone's personal data
+1.1. Privacy: current models don't have a 'forgetting' feature for personal use; models are used on large amounts of data that may include someone's personal data.
 
 1.2. Security of the model: eg. 'prompt injection' to generate for malicious code, or make the model reveal confidential/incorrect information.
 
@@ -47,10 +47,10 @@ Generative AI concepts
 2. Extrinsic: Model produces an output which can neither be proven right nor wrong based on the data it is trained on.
 
 **Mitigating above issues with LLM models**:
-1. Data bias: Assess against multiple small data slices, and keep updaing the data used for fine tuning.
-2. Toxic/confidential output: Apply Gaurdrails, assess data qulity using tools like SparkNLP etc.
+1. Data bias: Assess against multiple small data slices, and keep updaing the data used for regular fine tuning.
+2. Toxic/confidential output: Apply Gaurdrails, assess data quality using tools like SparkNLP etc.
 3. Misinformation: Curate the outputs, and fine tune wherever required.
-4. Malicious use: Regulation
+4. Malicious use: Regulation.
 
 **3 Layered approach for auditing Gen AI models:**:
 1. Governance auditing: around the companies that provide the models.  
