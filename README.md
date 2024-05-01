@@ -57,4 +57,9 @@ Generative AI concepts
 2. Model auditing: auditing the model before public release.
 3. Application auditing: assess the risk based on user utilisation. 
 
+----------------------------
+
+## Types of Gen AI models
+
+https://www.forbes.com/sites/bernardmarr/2024/04/29/the-4-types-of-generative-ai-transforming-our-world/?sh=33c2c8a2eb3a
 
