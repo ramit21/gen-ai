@@ -52,10 +52,24 @@ Generative AI concepts
 3. Misinformation: Curate the outputs, and fine tune wherever required.
 4. Malicious use: Regulation.
 
-**3 Layered approach for auditing Gen AI models:**:
+**3 Layered approach for auditing Gen AI models:**
 1. Governance auditing: around the companies that provide the models.  
 2. Model auditing: auditing the model before public release.
 3. Application auditing: assess the risk based on user utilisation. 
+
+** Deterministic vs non-deterministic AI models:**
+
+Gen AI is a non-deterministic AI model, as ite generates input based on randomness and probabilities. 
+
+Traditional AI models  can be deterministic or non-deterministic depending on their implementation. Here's a quick rundown:
+
+Regression: Typically deterministic. Given the same input data, a regression model will produce the same output, such as predicting house prices or stock trends.
+
+Clustering: Can be both. Methods like K-means can be non-deterministic due to random initialization, leading to different cluster assignments on different runs.
+
+Reinforcement Learning: Often non-deterministic. The same action can lead to different outcomes due to the environment's dynamics and exploration strategies.
+
+Classification: Usually deterministic. Algorithms like decision trees and logistic regression produce consistent results. However, models like neural networks can exhibit non-determinism due to random weight initialization.
 
 ----------------------------
 
