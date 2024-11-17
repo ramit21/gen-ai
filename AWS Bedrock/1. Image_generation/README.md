@@ -1,4 +1,4 @@
-# Image generation demo
+# Image generation using Stability diffusion
 
 Demo of sending a prompt to image generation using Stablity diffusion Model, store the image in S3 bucket.
 Then return a presigned url to the image.
