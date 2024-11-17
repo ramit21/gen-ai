@@ -1,7 +1,4 @@
 # Bedrock
 
 
-## What is Bedrock
-
-
 
