@@ -5,6 +5,8 @@ Chat solutions need to have memory as FMsare stateless. This is needed to suppor
 ## Installations
 Install AWS CLI, Python, Langchain and Steamlit on your system.
 
+Configure AWS profile on your system that has access to the Bedrock FM.
+
 Open Anaconda, and (must) launch visual studio from there, then go to terminal and start with the installations.
 
 ```
@@ -21,8 +23,8 @@ Open Anaconda, and (must) launch visual studio from there, then go to terminal a
 ## Setup
 
 ```
-python chatbot_backend.py
-python chatbot_frontend.py
+python chatbot_backend.py  # test backend code in isolation
+python chatbot_frontend.py # run chatbot UI that integrates with backend
 ```
 
 Streamlit is Python based library for spinning up a quick UI, which will server as frontend for chatbot.
