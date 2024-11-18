@@ -1,10 +1,9 @@
 # Chatbot with RAG
 
-Enrich chatbot with external PDF. Read the PDF, chunk it into segments, 
-create embeddings and store them in FAISS vector store.
+Enrich chatbot with PDF as external data source. Read the PDF, chunk it into segments, 
+create embeddings (using Amazon Title FM) and store them in FAISS vector store.
 
-Enrich user's prompt with knowledge store in FAISS, and then feed it to LLM model
-using LangChain, and return the respinse to Streamlit based UI.
+Enrich user's prompt with knowledge store in FAISS, and then feed it to LLM model (Llama3) using LangChain, and return the response to Streamlit based UI.
 
 ## Installations
 In addition to setups done in lab 3, install below as well:
