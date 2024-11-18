@@ -41,4 +41,4 @@ def hr_rag_response(index, question):
     hr_rag_query=index.query(question=question,llm=rag_llm)
     return hr_rag_query
 
-print(hr_rag_response(hr_index(), 'How many annual leaves allowed?')) #test with > python rag_backend.py
+# print(hr_rag_response(hr_index(), 'How many annual leaves allowed?')) #test with > python rag_backend.py
