@@ -1,6 +1,8 @@
 # Langchain and Streamlit based chatbot
 
-Chat solutions need to have memory as FMsare stateless. This is needed to support chat flow, eg user prompts 'give me top 3 Cricket players', and then user asks 'give me next 3'. Chat solution can answer it correctly only if it has some form of memory.
+Chat solutions need to have memory as FMs are stateless. This is needed to support chat flow, eg user prompts 'give me top 3 things to do in Paris', and then user asks 'give me next 3'. Chat solution can answer second question correctly only if it has some form of memory of what it has already answered.
+
+The prompt input is augmented with chat history and fed to the model, and on response from model, the history is updated. Langchain can take care of these interactions with the memory for us.
 
 ## Installations
 Install AWS CLI, Python, Langchain and Steamlit on your system.
@@ -17,17 +19,23 @@ Open Anaconda, and (must) launch visual studio from there, then go to terminal a
  pip install streamlit
  streamlit hello # starts streamlit server on Python
  pip install -U langchain-aws
- pip install anthropic
 ``` 
  
 ## Setup
+Backend python file has all langchain chaining code that connects to Bedrock FM using a memory.
 
+Streamlit history object is created in ui code and passed on as a param to the backend code creating the chain.
+
+Run frontend to launch the UI application:
 ```
-python chatbot_backend.py  # test backend code in isolation
-python chatbot_frontend.py # run chatbot UI that integrates with backend
+streamlit run .\chatbot_frontend.py
 ```
 
+You may run >python chatbot_backend.py in isolation to test backend code with a standalone call to chain method.
+
+## Info
 Streamlit is Python based library for spinning up a quick UI, which will server as frontend for chatbot.
 
 LangChain is a framework designed to help developers build applications powered by LLMs. Langchain provides many models, eg. **ConversationBufferMemory** to maintain chat history, and also provides **ConversationChain** to connect all these models.  
 
+Notice how frontend code imports and invokes methods on backend to initialise memory, and then to pass it on calls to chain invoke method along with prompt.
