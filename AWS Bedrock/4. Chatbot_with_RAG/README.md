@@ -13,6 +13,7 @@ In addition to setups done in lab 3, install below as well:
  pip install flask-sqlalchemy
  pip install pypdf
  pip install faiss-cpu
+ pip install -U langchain-community #for imports from langchain.embeddings
 
 ``` 
  
