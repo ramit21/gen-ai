@@ -9,8 +9,8 @@ Knowledge Base provides 2 sets of APIs to iteract with:
 2. Retrieve and Generate API: Single api that fetches context from RAG and then also invokes FM to return final response.
 
 ## About this POC
-In this POC, we create a S3 bucket containing some PDFs on EC2 and EBS guide/FAQs. We then build a Knowldge base on top of this S3 bucket.
-The given code is that of a lamba function which invokes Retrieve and Generate API on Knowldge base along with the FM ARN. The function is then able to answer queries based on knowledge from the PDFs.
+In this POC, we create a S3 bucket containing PDFs that we want to index into RAG. We then build a Knowledge base on top of this S3 bucket.
+The given code is that of a lambda function which invokes Retrieve and Generate API on Knowldge base along with the FM ARN. The function is then able to answer queries based on knowledge from the PDFs.
 
 Please note that AWS knowledge Base is billed on per hour basis, hence ensure that you delete the knowledge base at end of the POC.
 
@@ -19,6 +19,6 @@ As with previous examples, ensure Lambda as right IAM access, and timeout set to
 Test Lambda with test prompt:
 ```
 {
-    "prompt" : "Which EBS volume is good for high throughput?"
+    "prompt" : "What is the deadline for submitting reimbursement form for FTT Fintech Festival?"
 }
 ```
