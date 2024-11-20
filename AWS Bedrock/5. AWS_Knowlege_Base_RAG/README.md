@@ -28,6 +28,6 @@ Test Lambda with test prompt:
 
 The response (screenshot attached) comes from the knowledge base as learned from provided PDFs.
 
-Please note that AWS knowledge Base data store (OpenSearch) is billed on per hour basis, hence ensure that you delete the knowledge base along with Open Search instance at end of the POC.
+Please note that OpenSearch VectorStore created by AWS knowledge Base is billed on per hour basis, hence ensure that after you delete the knowledge base, delete Open Search instance as well, it is not auto deleted.
 
 
