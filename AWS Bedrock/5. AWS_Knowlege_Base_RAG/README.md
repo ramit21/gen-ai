@@ -22,3 +22,6 @@ Test Lambda with test prompt:
 ```
 
 Please note that AWS knowledge Base data store (OpenSearch) is billed on per hour basis, hence ensure that you delete the knowledge base along with Open Search instance at end of the POC.
+
+Also note that AWS knowledge store cannot be created using root user. Hence first create an IAM user and give AWS Admin privilege to it along with console access, and use this user for this POC.
+
