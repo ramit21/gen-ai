@@ -26,9 +26,9 @@ When you test the Agent, you can see the trace of actions taken for each of the 
 
 ## POC Setup
 Steps taken along with screenshots for running this POC:
-1. Create Swagger api which point description to respective lambda functions
+1. Create Swagger api which point description to respective lambda function. You can view and validate swagger spec at https://editor.swagger.io/
 2. Upload the same in S3 bucket.
 3. Create Lambda function (code attached), which in our POC returns hardcoded response, but in rael world it could be fetching details from downstreams.
 4. Ensure that response of Lambda function follows Bedrock Agent spec, so that Agent can understand the reposne of lambda when it invokes the latter.
-5. Next, create a Bedrock Knowledge base with you knowledge PDFs in a S3 bucket. Sample PDF with more details of a particular disease are attached.
+5. Next, upload your knowledge base PDFs in a S3 bucket and create a Bedrock Knowledge from it. Sample PDF with more details of a particular disease are attached.
 6. 

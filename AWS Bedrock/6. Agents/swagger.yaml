@@ -2,27 +2,15 @@ openapi: 3.0.0
 info:
   version: 1.0.0
   title: Health Reporting API
-  description: A simple API to return sstatus oh health check
-
-servers:
-  - url: https://example.io/v1
-
-components:
-  securitySchemes:
-    BasicAuth:
-      type: http
-      scheme: basic
-security:
-  - BasicAuth: []
-
+  description: API to return health check report status and diagnosis
 paths:
-  /reportResult:
+  /reportResultLambda:
     get:
-      description: Returns a list of artists 
-      #  ----- Added lines  ----------------------------------------
+      summary: Get result of report for given report id
+      description: Returns result of report and diagnosis for available reports 
       responses:
         '200':
-          description: Successfully returned a list of artists
+          description: Successfully returned report status
           content:
             application/json:
               schema:
@@ -30,17 +18,10 @@ paths:
                 items:
                   type: object
                   required:
-                    - username
+                    - reportId
                   properties:
-                    artist_name:
+                    reportId:
                       type: string
-                    artist_genre:
-                      type: string
-                    albums_recorded:
-                      type: integer
-                    username:
-                      type: string
-
         '400':
           description: Invalid request
           content:
@@ -50,4 +31,3 @@ paths:
                 properties:   
                   message:
                     type: string
-      #  ---- /Added lines  ----------------------------------------
