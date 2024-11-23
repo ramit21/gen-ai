@@ -2,26 +2,33 @@ openapi: 3.0.0
 info:
   version: 1.0.0
   title: Health Reporting API
-  description: API to return health check report status and diagnosis
+  description: API to return health check report status and diagnosis #Important
 paths:
-  /reportResultLambda:
+  /reportResultLambda/{reportId}:
     get:
       summary: Get result of report for given report id
-      description: Returns result of report and diagnosis for available reports 
+      description: Returns result of report and diagnosis for available reports
+      operationId: getReportStatus
+      parameters:
+      - name: reportId
+        in: path
+        required: true
+        schema: 
+          type: integer
       responses:
         '200':
           description: Successfully returned report status
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  type: object
-                  required:
-                    - reportId
-                  properties:
+                type: object
+                properties:
                     reportId:
+                      type: integer
+                    status:
                       type: string
+                    diagnosis:
+                      type: string    
         '400':
           description: Invalid request
           content:
