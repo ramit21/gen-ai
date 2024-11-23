@@ -1,5 +1,4 @@
 import json
-import boto3
 
 def lambda_handler(event, context):
     #follow this for request/response formats: https://docs.aws.amazon.com/bedrock/latest/userguide/agents-lambda.html
