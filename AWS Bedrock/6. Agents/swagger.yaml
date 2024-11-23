@@ -13,6 +13,7 @@ paths:
       - name: reportId
         in: path
         required: true
+        description: report id as input query paramater
         schema: 
           type: integer
       responses:
@@ -25,10 +26,13 @@ paths:
                 properties:
                     reportId:
                       type: integer
+                      description: report id as passed in
                     status:
                       type: string
+                      description: status of the report
                     diagnosis:
-                      type: string    
+                      type: string  
+                      description: diagnosis of the available reports  
         '400':
           description: Invalid request
           content:

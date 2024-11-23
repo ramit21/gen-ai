@@ -1,9 +1,10 @@
 import json
+import boto3
 
 def lambda_handler(event, context):
+    print(event)
     #follow this for request/response formats: https://docs.aws.amazon.com/bedrock/latest/userguide/agents-lambda.html
     agent = event['agent']
-    print('Event sent from agent - ' + agent +' is ' + event)
     reportId = event['parameters'][0]['value']
     responseObj = {
         'reportId' : reportId,
