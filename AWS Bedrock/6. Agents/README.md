@@ -6,18 +6,29 @@ First you provide a openapi spec Swagger documentation (via a S3 bucket) to the 
 API endpoints in this swagger will point to names of Lambda functions.
 When user gives a prompt to the Agent, it will try to match it to a Lambda based on the 
 'description' field given in swagger spec.
-From Lambda you can then invoke other AWS databases like Daynamodb, Auora etc to fetch data as per the lambda use case.
-Response of Lambda has to follow format expected from Bedrock Agent.
+From Lambda you can then take actions like invoking other AWS databases like Daynamodb, Auora etc to fetch data as per the use case.
+Response of Lambda has to follow format expected from Bedrock Agent spec.
 
 You also select the FM to use with the Agent.
 
 You can additionally provide a Knowledge Base to the Agent, which will serve the purpose of RAG store. So if user's prompt is not matched against API spec, it will try to find something in the RAG store, and then return the response as per the RAG context and the FM selected for use.
+
 At time of creating the Agent, you can give it instructions like 'Act like xyz and give your responses in abc format.'
 
-Agents work on 'Chain of thought' process.
+See the attached architecture screenshot on how the Agent works.
 
+Agents work on 'Chain of thought' process. It processes input to repsonse in 3 steps:
+1. **Pre-processing**: Agent processes user input prompt and enriches it with its own prompt store database making it more conducive for the foundation model selected. It also checks if the prompt is malicious and if its in the domain of the agent. Eg. An agent instructed to act like as health report expert, will say no to any question asked about banking or finance.
+2. **Orchestration**: In this step, the selected foundation model looks at user input, swagger api mapping, and instruction provided to the agent (act as ...), breaks down the task into manageable steps (chain of thought) on how to execute the task - eg. it will first try to map prompt to a swagger api descriptin, if not found then it goes to Knowledge Base etc.
+3. **Post-processing**: Steps taken to generate a final response from invoking action groups, knowledge bases, and model outputs.
+
+When you test the Agent, you can see the trace of actions taken for each of the above steps. (see screenshot as eg.) 
 
 ## POC Setup
 Steps taken along with screenshots for running this POC:
-1. 
-2. 
+1. Create Swagger api which point description to respective lambda functions
+2. Upload the same in S3 bucket.
+3. Create Lambda function (code attached), which in our POC returns hardcoded response, but in rael world it could be fetching details from downstreams.
+4. Ensure that response of Lambda function follows Bedrock Agent spec, so that Agent can understand the reposne of lambda when it invokes the latter.
+5. Next, create a Bedrock Knowledge base with you knowledge PDFs in a S3 bucket. Sample PDF with more details of a particular disease are attached.
+6. 
