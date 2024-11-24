@@ -28,19 +28,22 @@ When you test the Agent, you can see the trace of actions taken for each of the 
 Steps taken along with screenshots for running this POC:
 1. Create Swagger api which point description to respective lambda function. You can view and validate swagger spec at https://editor.swagger.io/
 2. Upload the same in S3 bucket.
-3. Create Lambda function (code attached), which in our POC returns hardcoded response, but in rael world it could be fetching details from downstreams.
-4. Ensure that request/response of Lambda function follows Bedrock Agent spec, as it will be the Agent that will be invoking this lambda and processing its response. Follow this documentation for the same: https://docs.aws.amazon.com/bedrock/latest/userguide/agents-lambda.html
-5. Next, upload your knowledge base PDFs in a S3 bucket and create a Bedrock Knowledge from it. Sample PDF with more details of a particular disease are attached.
-6. Create Agent. Take care of below when creating the Agent:
+3. Create Lambda function (code attached), which in our POC returns hardcoded response, but in rael world can also be fetching details from downstreams databases.
+4. Ensure that request/response of Lambda function follows Bedrock Agent spec, as it will be the Agent that will be invoking this lambda and processing the response. Follow this documentation for the same: https://docs.aws.amazon.com/bedrock/latest/userguide/agents-lambda.html
+5. Create Agent. Take care of below when creating the Agent:
 ```
-Select the FM eg Anthropic Claude.
+Select the FM eg. Anthropic Claude.
 Add instruction: 'You are an assistant chatbot in health care. You are friendly and polite. You resolve customer queries by providing health reports with the status. Refuse to answer any other topic than health-related.'
-Add Action Group to point to S3 bucket with swagger and the lambda function name (refer screenshot).
+Add Action Group to point to S3 bucket with swagger and select lambda function name (refer screenshot).
 
 ```
-7. Since Agent is supposed to call the Lambda function, add resource based permission to Lambda. Go to Lambda -> Configuration -> Permissions -> scroll down to 'Resource based policy statements -> Add Permissions -> Select AWS Service -> Other (as Bedrock not available in dropdown yet)-> enter below values for:
+6. Since Agent is supposed to call the Lambda function, add resource based permission to Lambda. Go to Lambda -> Configuration -> Permissions -> scroll down to 'Resource based policy statements -> Add Permissions -> Select AWS Service -> Other (as Bedrock not available in dropdown yet)-> enter below values for:
 ```
 Principal : bedrock.amazonaws.com
 Source ARN: ARN of the Agent
 Action: lambda:InvokeFunction
 ```
+7. Next, upload your knowledge base PDFs in a S3 bucket and create a Bedrock Knowledge from it. Sample PDF with more details of a particular disease are attached.
+8. Update the agent and set the knowledge base created above.
+10. Test the agent giving it prompts that would invoke Lambda, and prompts that would fetch response from RAG store instead.
+11. While not covered in this POC, you can create an API gateway that would invoke Agent directly as RESTful resources.

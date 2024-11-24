@@ -13,7 +13,6 @@ def lambda_handler(event, context):
     if(reportId == '1234'):
         responseObj['status'] = 'Available'
         responseObj['diagnosis'] = 'Blastocystis Hominis'
-    print('Response object = ' + responseObj)
     
     #prepare response as per above url
     response_body = {
