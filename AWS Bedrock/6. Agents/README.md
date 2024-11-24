@@ -35,7 +35,6 @@ Steps taken along with screenshots for running this POC:
 Select the FM eg. Anthropic Claude.
 Add instruction: 'You are an assistant chatbot in health care. You are friendly and polite. You resolve customer queries by providing health reports with the status. Refuse to answer any other topic than health-related.'
 Add Action Group to point to S3 bucket with swagger and select lambda function name (refer screenshot).
-
 ```
 6. Since Agent is supposed to call the Lambda function, add resource based permission to Lambda. Go to Lambda -> Configuration -> Permissions -> scroll down to 'Resource based policy statements -> Add Permissions -> Select AWS Service -> Other (as Bedrock not available in dropdown yet)-> enter below values for:
 ```
@@ -44,6 +43,15 @@ Source ARN: ARN of the Agent
 Action: lambda:InvokeFunction
 ```
 7. Next, upload your knowledge base PDFs in a S3 bucket and create a Bedrock Knowledge from it. Sample PDF with more details of a particular disease are attached.
-8. Update the agent and set the knowledge base created above.
-10. Test the agent giving it prompts that would invoke Lambda, and prompts that would fetch response from RAG store instead.
-11. While not covered in this POC, you can create an API gateway that would invoke Agent directly as RESTful resources.
+8. Update the agent and set the knowledge base created above. It is very important that you also enter the instruction which will decide when Agent will invoke the knowledge base. For this POC, below text was used:
+```
+Bedrock Agent will utlise the knowledge base to answer any questions about diagnosis mentioned in the report statuses.
+```
+10. While not covered in this POC, you can create an API gateway that would invoke Agent directly as RESTful resources.
+11. Test the agent giving it prompts that would invoke Lambda, and prompts that would fetch response from RAG store instead. As attached screenshots, one can see responses to following questions:
+ 
+ A question on embedded finance is refused by the agent as it has been instructed to only answer health related queries.
+
+ A question of status of report id 999 is returned form lambda as 'Pending'.
+
+ A question on report id 1234 - returns status as 'Available' and diagnosis as 'Blastocystis Hominis' from Lambda, and then includes indormation on the diagnosis from Knowledge Store RAG.
