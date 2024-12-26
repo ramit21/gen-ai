@@ -95,3 +95,6 @@ added 5X200=1000 tokens as RAG context to the input prompt tokens, leaving littl
 An overlap of 0 means all chunks are treated separately. And, too much overlap can lead to redundancy and inefficiency.
 
 **Firecrawl**: It is a SAAS tool that is used to scrape website urls, and create RAG vector strore embeddings. It integrates very easily with Langchain. 
+
+**Agents**: Langcahin can intgrate with various agents that generate some python code and rn at the backend , eg QR code generator, CSV file processor etc. But since these Agents run code at backend based on user prompts, these come with their own set of risks. A promp injection attack can make a malicious code to run on server and have some ill effects like data leakage etc. Hence the input text must be properly sanitised before invoking agents.
+
