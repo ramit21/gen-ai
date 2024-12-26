@@ -77,3 +77,21 @@ Classification: Usually deterministic. Algorithms like decision trees and logist
 
 https://www.forbes.com/sites/bernardmarr/2024/04/29/the-4-types-of-generative-ai-transforming-our-world/?sh=33c2c8a2eb3a
 
+## LangChain
+
+LangChain is a programming language platform that allows developers to create and connect models to access, transform, and share data. It's designed to help developers build applications that use LLMs, such as chatbots and virtual agent.
+
+**LCEL**: LangChain Expression Language is a declarative way to compose chains of tasks in LangChain.
+
+**React Agents**: The ReAct agent in LangChain is based on the concept of "ReAct: Synergizing Reasoning and Acting in Language Models". It's designed to enable language models to interact with external tools and perform tasks that require both reasoning and action. An **agent executor** is used to manage the interaction between the language model and the tools.
+
+**Callback handlers**: LangChain provides a callback system that allows you to hook into various stages of your LLM application. Several callback event are supported like - LLM/Chain/Tool - start/end/errors etc.
+
+**RAG data indexing parameters**: When indexing data (from text files, pdf, scraped websites etc) for storing in RAG, 2 important parameters:
+1. **Chunk size**: No. of tokens in the chunk size. Choose it wisely as per the tokens allowed in the eventual LLM used. 
+To understand this, let's say we fetch top 5 contexts from RAG and provide it to the LLM model, and each chunk size is say 200 tokens, then we have already
+added 5X200=1000 tokens as RAG context to the input prompt tokens, leaving little room for output token count.   
+2. **Overlap**: How many tokens overlap between different chunks. This decides contextual continiuity between different chunks.
+An overlap of 0 means all chunks are treated separately. And, too much overlap can lead to redundancy and inefficiency.
+
+**Firecrawl**: It is a SAAS tool that is used to scrape website urls, and create RAG vector strore embeddings. It integrates very easily with Langchain. 
