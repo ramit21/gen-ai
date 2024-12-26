@@ -55,3 +55,7 @@ Bedrock Agent will utlise the knowledge base to answer any questions about diagn
  A question of status of report id 999 is returned form lambda as 'Pending'.
 
  A question on report id 1234 - returns status as 'Available' and diagnosis as 'Blastocystis Hominis' from Lambda, and then includes indormation on the diagnosis from Knowledge Store RAG.
+
+## Risk
+
+Agents that run code at backend on user prompts come with their own set of risks. A promp injection attack can make a malicious code to run on server and have some il effects like data leakage etc. Hence the input text must be properly sanitised before invoking agents.
