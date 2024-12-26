@@ -96,7 +96,41 @@ An overlap of 0 means all chunks are treated separately. And, too much overlap c
 
 **Firecrawl**: It is a SAAS tool that is used to scrape website urls, and create RAG vector strore embeddings. It integrates very easily with Langchain. 
 
-**Agents**: Langcahin can intgrate with various agents that generate some python code and rn at the backend , eg QR code generator, CSV file processor etc. But since these Agents run code at backend based on user prompts, these come with their own set of risks. A promp injection attack can make a malicious code to run on server and have some ill effects like data leakage etc. Hence the input text must be properly sanitised before invoking agents. 
+**Agents**: Langchain can intgrate with various agents that generate some python code and run at the backend , eg QR code generator, CSV file processor etc. But since these Agents run code at backend based on user prompts, these come with their own set of risks. A promp injection attack can make a malicious code to run on server and have some ill effects like data leakage etc. Hence the input text must be properly sanitised before invoking agents. 
 Also, the use of Agents can be flaky - different answers to same query.
 
 Agent router is used to send different user inputs to different agents based on description fields..
+
+**Langchain Tools**: These expoe common functions which are supported by most LLM models. 
+Before Langchain tools, one had to call LLM vendor specific functions.
+Lanchain tools help abstract it, and calls the underlying model's API as per the implementation. Helps save lot of code with Langchain.
+
+**Tavily**: Tavily is primarily designed as a search engine for Large Language Models (LLMs) and AI agents, providing real-time, accurate search results and information retrieval. Tavily is optimised for RAGs and integrates very well with LangChain.
+
+## Token limitation
+
+If input and output combined token counts exceeds token limit then LLM errors out. 
+Techniques are available to manage LM token limit issue:
+
+For eg., let's say we have to process 10 documents, and produce a summary output using LLM.
+
+1. **Stuff**: all the documents together and then feed to LLM.
+```
+from langchain.chains.summarize import load_summarize_chain
+
+chain = load_summarize_chain(llm, chain_type="stuff")
+
+```
+
+2. **Map Reduce**: Summarize all documents through LLM in parallel, and then combine and summarise from all the summaries generated.
+```
+chain = load_summarize_chain(llm, chain_type="map_reduce")
+```
+Because of parralelism, it is faster, but con is that multiple api calls can increase the cost, and there can be loss of information as we generate final summay from ther summaries. 
+
+3. **Refine**: Multiple iterations of summarising documents, till a good level of details is preserved.
+```
+chain = load_summarize_chain(llm, chain_type="refine")
+```
+
+
