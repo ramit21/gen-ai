@@ -126,6 +126,9 @@ https://python.langchain.com/v0.1/docs/modules/memory/types/buffer/.
 It allows developers to create stateful, multi-actor (incl human interaction) applications using LLMs.
 Think about step functions with lambda as an analogy.
 
+**Langchain hub**: LangChain Hub is a platform where users can find and share commonly used prompts, chains, agents, 
+and other components for building AI applications with LangChain
+
 ## Token limitation
 
 If input and output combined token counts exceeds token limit then LLM errors out. 
