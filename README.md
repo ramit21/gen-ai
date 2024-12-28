@@ -131,6 +131,9 @@ Think about step functions with lambda as an analogy.
 **Langchain hub**: LangChain Hub is a platform where users can find and share commonly used prompts, chains, agents, 
 and other components for building AI applications with LangChain. https://smith.langchain.com/hub
 
+**LlamaIndex**: is an alternate framework to Langchain for developing LLM applications.
+LangChain is more versatile and suitable for a wide range of NLP applications, while LlamaIndex excels in data indexing and retrieval tasks.
+
 ## Token limitation
 
 If input and output combined token counts exceeds token limit then LLM errors out. 
