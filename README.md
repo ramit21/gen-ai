@@ -107,6 +107,16 @@ Lanchain tools help abstract it, and calls the underlying model's API as per the
 
 **Tavily**: Tavily is primarily designed as a search engine for Large Language Models (LLMs) and AI agents, providing real-time, accurate search results and information retrieval. Tavily is optimised for RAGs and integrates very well with LangChain.
 
+**Memory**: Langchain supports different type of memories, for example:
+1. ConversationSummary: updates the summary on every user interation,
+2. ConversationBuffer: keeps track of all interactions, can end up consuming lot of memory if conversation size grows.
+3. ConversationWindowBuffer: keeps track of last k (window size) interactions.
+4. ConversationTokenBuffer: keeps conversations upto specified token count.
+5. Backed by vector store: save user interactions as embeddings in the vector store. This adds to latency and cost.
+
+https://python.langchain.com/v0.1/docs/modules/memory/types/buffer/.
+ 
+
 ## Token limitation
 
 If input and output combined token counts exceeds token limit then LLM errors out. 
@@ -132,5 +142,6 @@ Because of parralelism, it is faster, but con is that multiple api calls can inc
 ```
 chain = load_summarize_chain(llm, chain_type="refine")
 ```
+
 
 
