@@ -3,6 +3,10 @@ Generative AI concepts
 
 ## Gen AI fundamentals
 
+**Language Modeling**: Given a sequence of words, predicting the next word with highest probability.
+
+**LLM**: A language model with large no of parameters. These are trained on huge amount of data, which is used to calculate good probabilities of next word in the sequence.
+
 **LLM flavours**:
 1. Open source models: eg. Data bricks dolly, Meta Llama, mosaic mpt, Hugging face, Stable Diffusion etc. More control on tuning the model to your use case, eg. tuning the model on sample data that is more specific to your use insead of a large data corpus. Cons: requires in house expertise, needs time to evaluate and tune the model.
 2. Proprietary models: LLM-as-a-service. eg ChatGPT. Quick to get started. Cons: Pay per token sent/received, vendor lockin, data/privacy issues - you may not know how your data is used.
