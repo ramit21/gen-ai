@@ -87,7 +87,9 @@ LangChain is a programming language platform that allows developers to create an
 
 **LCEL**: LangChain Expression Language is a declarative way to compose chains of tasks in LangChain.
 
-**React Agents**: The ReAct agent in LangChain is based on the concept of "ReAct: Synergizing Reasoning and Acting in Language Models". It's designed to enable language models to interact with external tools and perform tasks that require both reasoning and action. An **agent executor** is used to manage the interaction between the language model and the tools.
+**React Agents**: The ReAct (Reason+Act) means think about the problem, break it into smaller tasks and interact with external environments to perform a complex task. 
+React Agents are designed to enable language models to interact with external tools and perform tasks that require both reasoning and action.
+An **agent executor** is used to manage the interactions between the language model and the tools.
 
 **Callback handlers**: LangChain provides a callback system that allows you to hook into various stages of your LLM application. Several callback event are supported like - LLM/Chain/Tool - start/end/errors etc.
 
