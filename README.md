@@ -123,7 +123,7 @@ Lanchain tools help abstract it, and calls the underlying model's API as per the
 https://python.langchain.com/v0.1/docs/modules/memory/types/buffer/.
  
 **LangGraph**:LangGraph is a framework developed by LangChain for building and scaling agentic applications. 
-It allows developers to create stateful, multi-actor applications using large language models (LLMs).
+It allows developers to create stateful, multi-actor (incl human interaction) applications using LLMs.
 Think about step functions with lambda as an analogy.
 
 ## Token limitation
