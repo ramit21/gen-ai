@@ -100,6 +100,8 @@ added 5X200=1000 tokens as RAG context to the input prompt tokens, leaving littl
 2. **Overlap**: How many tokens overlap between different chunks. This decides contextual continiuity between different chunks.
 An overlap of 0 means all chunks are treated separately. And, too much overlap can lead to redundancy and inefficiency.
 
+You can use Langchain text split playground to play with your data and arrive at optimal chunk size and overlap values - https://langchain-text-splitter.streamlit.app/.
+
 **Firecrawl**: It is a SAAS tool that is used to scrape website urls, and create RAG vector strore embeddings. It integrates very easily with Langchain. 
 
 **Agents**: Langchain can intgrate with various agents that generate some python code and run at the backend , eg QR code generator, CSV file processor etc. But since these Agents run code at backend based on user prompts, these come with their own set of risks. A promp injection attack can make a malicious code to run on server and have some ill effects like data leakage etc. Hence the input text must be properly sanitised before invoking agents. 
@@ -122,7 +124,7 @@ Lanchain tools help abstract it, and calls the underlying model's API as per the
 
 https://python.langchain.com/v0.1/docs/modules/memory/types/buffer/.
  
-**LangGraph**:LangGraph is a framework developed by LangChain for building and scaling agentic applications. 
+**LangGraph**: LangGraph is a framework developed by LangChain for building and scaling agentic applications. 
 It allows developers to create stateful, multi-actor (incl human interaction) applications using LLMs.
 Think about step functions with lambda as an analogy.
 
