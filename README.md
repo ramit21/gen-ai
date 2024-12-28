@@ -127,7 +127,7 @@ It allows developers to create stateful, multi-actor (incl human interaction) ap
 Think about step functions with lambda as an analogy.
 
 **Langchain hub**: LangChain Hub is a platform where users can find and share commonly used prompts, chains, agents, 
-and other components for building AI applications with LangChain
+and other components for building AI applications with LangChain. https://smith.langchain.com/hub
 
 ## Token limitation
 
