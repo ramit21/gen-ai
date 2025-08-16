@@ -2,7 +2,7 @@
 
 In previous example, we loaded a PDF, split it into chunks, created embeddings and stored them in a vector store DB. AWS Bedrock Knowledge Base can help automate all of above tasks. You just create a knowledge base on Bedrock, upload your PDFs etc. in S3 and provide S3 bucket as the source, and Knowledge Base will take care of creating a RAG store internally in AWS Opensearch Serverless. 
 
-Other supported input mediums with Besrock Knowledge Base include Confluence (with auth credentials supplied via AWS secrets Manager), WebCrawler etc. Other supported RAG stores include Amazon Aurora, MongoDb Atlas, external Redis Enterprise Cloud etc.
+Other supported input mediums with Bedrock Knowledge Base include Confluence (with auth credentials supplied via AWS secrets Manager), WebCrawler etc. Other supported RAG stores include Amazon Aurora, MongoDb Atlas, external Redis Enterprise Cloud etc.
 
 Knowledge Base provides 2 sets of APIs to iteract with:
 1. Retrieve API: Fetch RAG context from Knowledge Base, and then present it along with original question to FM.
