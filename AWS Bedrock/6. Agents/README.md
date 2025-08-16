@@ -28,7 +28,7 @@ When you test the Agent, you can see the trace of actions taken for each of the 
 Steps taken along with screenshots for running this POC:
 1. Create Swagger api which point description to respective lambda function. You can view and validate swagger spec at https://editor.swagger.io/
 2. Upload the same in S3 bucket.
-3. Create Lambda function (code attached), which in our POC returns hardcoded response, but in rael world can also be fetching details from downstreams databases.
+3. Create Lambda function (code attached), which in our POC returns hardcoded response, but in real world can also be fetching details from downstreams databases.
 4. Ensure that request/response of Lambda function follows Bedrock Agent spec, as it will be the Agent that will be invoking this lambda and processing the response. Follow this documentation for the same: https://docs.aws.amazon.com/bedrock/latest/userguide/agents-lambda.html
 5. Create Agent. Take care of below when creating the Agent:
 ```
