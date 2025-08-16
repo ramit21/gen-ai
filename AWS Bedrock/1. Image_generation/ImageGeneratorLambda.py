@@ -28,7 +28,7 @@ def lambda_handler(event, context):
     # as per model documentation, data resides as StreamingBody() against body
     # convert StreamingBody to bytes using json_loads
     response_bedrock_bytes = json.loads(response_bedrock['body'].read())
-    # now further extract mage data from artifact key and base64 decode
+    # now further extract image data from artifact key and base64 decode
     response_bedrock_base64 = response_bedrock_bytes['artifacts'][0]['base64']
     response_bedrock_finalimage = base64.b64decode(response_bedrock_base64)
     # store the image in S3 with a key
