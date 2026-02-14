@@ -98,7 +98,7 @@ curl http://localhost:11434/api/generate -d '{
 }'
 ```
 
-Disable streaming:
+Disable streaming (ie generate all output in one go)
 
 ``` json
 "stream": false
@@ -121,7 +121,7 @@ curl http://localhost:11434/api/chat -d '{
 ```
 
 ------------------------------------------------------------------------
-## Programattic access
+## Programmatic access
 
 Accessing Ollama from application code using OpenApi APIs:
 
@@ -151,7 +151,7 @@ def chat_with_model(messages):
 
     payload = {
         "model": MODEL,
-        "messages": messages
+        "messages": messages # messages as chat history context input to the model
     }
 
     response = requests.post(url, json=payload, headers=headers)
@@ -173,7 +173,7 @@ if __name__ == "__main__":
     app.run(debug=True)
 ```
 
-To run above , first setup Python virtual env. A virtual environment isolates your project’s Python packages so they don’t interfere with system wide libraries or other projects, giving you clean, reproducible setups.
+To run above, first setup Python virtual env. A virtual environment isolates your project’s Python packages from system-wide libraries and other projects, giving you clean, reproducible setups.
 
 ```
 python3 -m venv venv
@@ -186,13 +186,13 @@ python app.py
 ------------------------------------------------------------------------
 
 ## ⚙️ Model Customization (Modelfile)
-Ollama supports Model customization, and upload of custom model in the Ollama registry.
-Customization is defined in a **Modelfile**, with instructions similar to a dockerfile.
+Ollama supports Model customization and the upload of custom model in the Ollama registry.
+Customisation is defined in a **Modelfile**, with instructions similar to a Dockerfile.
 ``` 
 FROM llama3
 
 SYSTEM """
-You are a precise assistant that answers with clean, factual responses.
+You are a precise assistant who answers with clean, factual responses.
 """
 
 PARAMETER temperature 0.3
