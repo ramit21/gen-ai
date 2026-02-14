@@ -170,7 +170,19 @@ Build custom model:
 ollama create mymodel -f Modelfile
 ollama run mymodel
 ```
+Push to ollama registry:
+```
+ollama login
+ollama tag mymodel username/mymodel:v1
+ollama push username/mymodel:latest
+```
 
+Reusing the model from registry:
+```
+ollama pull username/mymodel:latest
+
+ollama run username/mymodel
+```
 ------------------------------------------------------------------------
 
 ## 🎯 Why Use Ollama?
