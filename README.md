@@ -160,5 +160,6 @@ Because of parralelism, it is faster, but con is that multiple api calls can inc
 chain = load_summarize_chain(llm, chain_type="refine")
 ```
 
-
+## Ollama
+[📘 View the full Ollama Course](./ollama.md)
 
