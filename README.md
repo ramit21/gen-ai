@@ -163,3 +163,5 @@ chain = load_summarize_chain(llm, chain_type="refine")
 ## Ollama
 [📘 View the full Ollama Course](./ollama.md)
 
+## GenAI for Coding
+[📘 Use of GenAI for coding Course](./GenAI_for_Coding_Course.md)
