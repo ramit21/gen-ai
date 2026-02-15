@@ -238,3 +238,6 @@ ollama run username/mymodel
 -   Privacy-focused startups
 -   Researchers
 -   Edge AI deployments
+
+
+Note: Ollama hosts only open‑source, locally runnable models. It supports text LLMs (Llama, Mistral, Gemma, Qwen), vision models (LLaVA, Moondream), and some image generators (Stable Diffusion, Flux). It does not include OpenAI’s proprietary models like Whisper (audio), Sora (video), or GPT‑4. Those remain cloud‑only and accessible exclusively through the OpenAI API. Ollama is ideal for local experimentation, but not for audio/video generation or OpenAI‑specific workflows.
