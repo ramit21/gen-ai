@@ -165,3 +165,15 @@ chain = load_summarize_chain(llm, chain_type="refine")
 
 ## GenAI for Coding
 [📘 Use of GenAI for coding Course](./GenAI_for_Coding_Course.md)
+
+## OpenAI
+
+OpenAI provides APIs for chat completion, text generation, moderation, and several specialised model families. For text‑based tasks, it offers models like GPT‑4 and GPT‑3.5. For audio, OpenAI provides Whisper for speech‑to‑text transcription. For image generation, it offers DALL·E, and for video generation, newer models extend that capability further. Each API endpoint is designed for a specific modality, making it easy to integrate natural language, audio, and visual intelligence into applications.
+
+Useful code demos:
+- https://www.youtube.com/watch?v=y8-En6J9o-Y
+- https://www.youtube.com/watch?v=HbY51mVKrcE
+- https://www.youtube.com/watch?v=XMrtHz4IoT0
+- https://www.youtube.com/watch?v=b7qhSmUQ9oo
+- https://www.youtube.com/watch?v=kj6Zb_KGz0g
+- https://www.youtube.com/watch?v=MmtVJmcOYDg
