@@ -170,6 +170,8 @@ chain = load_summarize_chain(llm, chain_type="refine")
 
 OpenAI provides APIs for chat completion, text generation, moderation, and several specialised model families. For text‑based tasks, it offers models like 'GPT‑4' and 'GPT‑3.5'. For audio, OpenAI provides 'Whisper' for speech‑to‑text transcription. For image generation, it offers 'DALL·E', and for video generation, newer models ('Sora') extend that capability further. Each API endpoint is designed for a specific modality, making it easy to integrate natural language, audio, and visual intelligence into applications.
 
+'CLIP (Contrastive Language–Image Pre‑training)' is an OpenAI model that learns the relationship between images and text. It uses separate image and text encoders to map both into a shared vector space, allowing it to match pictures with their correct descriptions. CLIP enables zero‑shot image classification, improves prompt understanding, and acts as the vision‑language backbone for many generative models like DALL·E and Stable Diffusion.
+
 Useful code demos:
 - https://www.youtube.com/watch?v=y8-En6J9o-Y
 - https://www.youtube.com/watch?v=HbY51mVKrcE
