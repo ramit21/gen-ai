@@ -63,6 +63,9 @@
 -   Another AI-native coding tool.
 -   Supports prompt-driven development workflows.
 
+### Roo code
+
+An AI agent framework that can read and modify files, run commands, and automate development tasks, with the ability to connect directly to MCP servers. It requires at least one LLM model—either through an API key, a URL endpoint, or a local runtime such as Ollama—to act as the agent’s reasoning engine. Chat‑based models like Llama 3 work well because all interaction with the Roo agent happens through conversational messages, while coding‑focused models such as Qwen2‑Coder in Ollama offer stronger code‑generation and refactoring performance. Roo Code runs as an extension inside IDEs such as VS Code and, through a compatibility layer, JetBrains IDEs like IntelliJ. In contrast, AI‑native IDEs such as Windsurf, Antigravity, and Cursor include their own built‑in agent systems and do not rely on Roo Code.
 ------------------------------------------------------------------------
 
 ## 3. Leadership Concerns with GenAI Coding Tools
