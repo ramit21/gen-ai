@@ -65,7 +65,23 @@
 
 ### Roo code
 
-An AI agent framework that can read and modify files, run commands, and automate development tasks, with the ability to connect directly to MCP servers. It requires at least one LLM model—either through an API key, a URL endpoint, or a local runtime such as Ollama—to act as the agent’s reasoning engine. Chat‑based models like Llama 3 work well because all interaction with the Roo agent happens through conversational messages, while coding‑focused models such as Qwen2‑Coder in Ollama offer stronger code‑generation and refactoring performance. Roo Code runs as an extension inside IDEs such as VS Code and, through a compatibility layer, JetBrains IDEs like IntelliJ. In contrast, AI‑native IDEs such as Windsurf, Antigravity, and Cursor include their own built‑in agent systems and do not rely on Roo Code.
+An AI agent framework that can read and modify files, run commands, and automate development tasks, with the ability to connect directly to MCP servers. It requires at least one LLM model—either through an API key, a URL endpoint, or a local runtime such as Ollama—to act as the agent’s reasoning engine. Chat‑based models like Llama 3 work well because all interaction with the Roo agent happens through conversational messages, while coding‑focused models such as Qwen2‑Coder in Ollama offer stronger code‑generation and refactoring performance. Roo Code runs as an extension inside IDEs such as VS Code and, through a compatibility layer, JetBrains IDEs like IntelliJ. 
+
+### Continue.dev  
+
+Continue.dev is an open‑source AI coding assistant that runs as an extension inside existing IDEs such as VS Code and JetBrains. It provides chat, autocomplete, inline code edits, and optional agent‑style workflows, with the primary goal of improving developer productivity inside the editor. Its strength is tight IDE integration: autocomplete, quick edits, PR checks, and configurable MCP tools.
+
+Roo Code, by contrast, is an AI agent framework designed for deeper autonomy. It can read and write files, run commands, plan multi‑step tasks, orchestrate workflows, and interact with tools. Instead of being just an assistant inside the IDE, Roo behaves more like an AI operator that can drive your development environment.
+
+A key architectural difference is that Continue.dev  focuses on assistive coding, while Roo Code focuses on agentic execution.
+
+Windsurf, Cursor, and Antigravity are full AI IDEs, not extensions. They ship with their own agent engines and do not require Continue.dev  or Roo Code. They offer a polished, integrated experience but are not free.
+
+Using Ollama, you can build a fully local, free agentic IDE setup by pointing Continue.dev to local models. This setup typically requires three model types:
+- a chat model (e.g., Llama 3) for reasoning and conversation
+- a coding model (e.g., Qwen2‑Coder) for strong code generation and refactoring
+- an embedding model for search, context retrieval, and RAG‑style features
+ 
 ------------------------------------------------------------------------
 
 ## 3. Leadership Concerns with GenAI Coding Tools
