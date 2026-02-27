@@ -84,7 +84,13 @@ Using Ollama, you can build a fully local, free agentic IDE setup by pointing Co
 - a chat model (e.g., Llama 3) for reasoning and conversation
 - a coding model (e.g., Qwen2‑Coder) for strong code generation and refactoring
 - an embedding model for search, context retrieval, and RAG‑style features
- 
+
+### Kiro
+
+Kiro is a spec‑driven AI IDE built by Amazon, designed to behave less like a code autocomplete tool and more like a structured feature‑delivery system. You give it a prompt or workflow, and it first generates a formal spec document, then turns that into user stories and executable tasks. Each task becomes a unit of code generation, with Kiro maintaining consistency across files, tests, and project structure. It also supports automation hooks (for example, “whenever a new */py file is created, update the README”), making it feel like an opinionated, process‑first engineering environment rather than a traditional IDE. Unlike Roo Code or other AI‑augmented editors, Kiro is not model‑agnostic: it only supports Claude models because it runs entirely on AWS Bedrock, which currently exposes Claude but not OpenAI models. This makes Kiro more structured and enterprise‑aligned, while tools like Roo Code or Cursor are more flexible, open, and model‑agnostic.
+
+Kiro ends up costing more because its workflow sits on three separate pricing layers: a paid IDE subscription, AWS Bedrock request charges, and Claude model usage on top of Bedrock. Every feature run triggers multiple model calls (spec → stories → tasks → code → hooks), so token usage is naturally higher. In contrast, Roo Code with OpenAI is far cheaper because it has no IDE fee, no Bedrock middle layer, and you pay only for direct OpenAI model calls, which are already priced lower than Claude‑via‑Bedrock. For practical budgeting, Kiro is the high‑structure, high‑cost option; Roo Code with OpenAI is the flexible, low‑cost option.
+
 ------------------------------------------------------------------------
 
 ## 3. Leadership Concerns with GenAI Coding Tools
