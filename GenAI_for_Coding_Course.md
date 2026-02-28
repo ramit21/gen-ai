@@ -220,7 +220,6 @@ These diagrams can represent:
 -   Deployment pipelines
 
 ------------------------------------------------------------------------
-## 9. How to choose a model
 
 ## 9. How to choose a model
 
