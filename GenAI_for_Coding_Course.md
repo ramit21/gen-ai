@@ -220,7 +220,73 @@ These diagrams can represent:
 -   Deployment pipelines
 
 ------------------------------------------------------------------------
+## 9. How to choose a model
 
+## 9. How to choose a model
+
+Choosing a model is a balance between **accuracy**, **speed**, **hardware limits**, and **cost**. The three variables that matter most are **model size**, **architecture (dense vs MoE)**, and **quantisation level**.
+
+### Model size and capability
+Larger models generally reason better, follow instructions more reliably, and handle complex tasks, while smaller models are faster and cheaper.
+
+- **Small models (3B–14B)** — fast, low‑cost, good for autocomplete, coding, and simple reasoning.
+- **Medium models (30B–70B)** — strong reasoning and balanced performance.
+- **Large models (100B+)** — highest reasoning ability but expensive and slow unless quantised.
+
+Dense models scale linearly: more parameters require more VRAM and compute.
+
+### Dense vs MoE (Mixture‑of‑Experts)
+MoE models have many total parameters but only a small subset (“experts”) active per token.
+
+- **Dense models** — all parameters active every token; highest stability and accuracy; high VRAM needs.
+- **MoE models** — huge total parameters but behave like a smaller model at inference; faster and cheaper; slightly less consistent on edge cases.
+
+MoE is ideal when you want **big‑model intelligence with small‑model hardware cost**.
+
+### Quantisation (4‑bit, 8‑bit, FP16)
+Quantisation compresses the model by **reducing the precision of weight‑vector values** (e.g., from 16‑bit floats to 4‑bit integers), cutting memory use and speeding up inference.
+
+- **4‑bit quantisation (Int4, NF4, AWQ)** — ~75% VRAM reduction, much faster inference, small accuracy drop; enables 14B–32B models on 8–12 GB GPUs.
+- **8‑bit quantisation** — moderate VRAM savings, minimal accuracy loss; good for production inference.
+- **FP16/BF16** — full precision, highest accuracy, requires large GPUs; best for training or high‑stakes reasoning.
+
+Quantisation is the single biggest enabler for running large models on consumer hardware.
+
+### Practical decision flow
+1. **Match to hardware**
+   - 8–12 GB GPU → 4‑bit 7B–14B or MoE models  
+   - 16–24 GB GPU → 4‑bit 30B–70B or FP16 14B–30B  
+   - 48 GB+ GPU → FP16 70B+  
+
+2. **Match to use case**
+   - Coding → 7B–14B is enough; 32B+ improves reasoning  
+   - Chat + reasoning → 30B–70B dense or MoE  
+   - Math, logic, planning → 70B dense or high‑end MoE  
+   - Fast inference → 4‑bit quantised  
+   - Maximum accuracy → FP16 dense  
+
+3. **Choose speed vs intelligence**
+   - Speed → smaller or MoE + 4‑bit  
+   - Intelligence → larger dense models (FP16 or 8‑bit)
+
+### Quick reference table
+
+| Factor | Option | When to choose |
+|--------|--------|----------------|
+| **Model size** | 7B–14B | Fast, cheap, coding, autocomplete |
+| | 30B–70B | Strong reasoning, balanced performance |
+| | 100B+ | Best reasoning, expensive |
+| **Architecture** | Dense | Highest accuracy, predictable |
+| | MoE | Big‑model intelligence on small hardware |
+| **Quantisation** | 4‑bit | Max speed + minimal VRAM |
+| | 8‑bit | Good balance |
+| | FP16 | Highest fidelity |
+
+### One‑sentence rule of thumb
+Pick the **smallest model that meets your accuracy needs**, and run it in **4‑bit quantisation** unless you specifically need full‑precision reasoning.
+
+
+------------------------------------------------------------------------
 # Summary
 
 Generative AI tools significantly accelerate coding, requirement
