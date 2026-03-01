@@ -119,6 +119,7 @@ A typical `.claude/` directory structure looks like:
 
 These files allow Claude Code to behave more like a teammate who understands your codebase, rather than a stateless assistant. They help enforce expectations such as asking clarifying questions before generating code, avoiding assumptions about missing context, or following specific project patterns.
 
+You can also keep a more global .claude directory in your $HOME for workspace-wide instructions.
 
 ------------------------------------------------------------------------
 
