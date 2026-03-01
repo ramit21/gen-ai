@@ -103,6 +103,23 @@ Kiro ends up costing more because its workflow sits on three separate pricing la
 
 ### Claude Code
 
+Claude Code is an AI‑assisted development environment built around Anthropic’s Claude models, designed to work inside editors such as VS Code and Cursor. It focuses on conversational, context‑aware coding rather than simple autocomplete. Claude Code can read files, propose edits, refactor code, generate tests, and perform multi‑file reasoning, but it does not execute shell commands or act as a fully autonomous agent. Its strength lies in high‑quality reasoning, safe transformations, and natural‑language workflows.
+
+Claude Code supports multimodal input, which allows it to work directly from screenshots, UI mockups, diagrams, or design images. You can provide a screenshot of a webpage or application layout, and Claude can generate a complete HTML/CSS/JS implementation that matches the design. Because the workflow is conversational, you can iteratively refine the output—adjust spacing, change colors, add animations, convert to React, or restructure components—simply by chatting with the model. This makes Claude particularly effective for rapid prototyping, front‑end scaffolding, and design‑to‑code workflows.
+
+Claude Code also supports a project‑local configuration system through a `.claude/` directory. This directory allows you to define persistent instructions that shape how Claude behaves across sessions and across developer machines. The most common file is `CLAUDE.md`, which acts as a project‑level guide describing coding conventions, architectural expectations, naming rules, and behavioural constraints. Claude loads this file automatically and uses it as a baseline for all coding tasks.
+
+The `.claude/` directory may also contain auto‑generated memory files created by Claude Code itself. These files store patterns it has learned from your corrections and preferences, helping it maintain consistency without requiring repeated instructions. Unlike Roo Code, Claude does not use skills or multi‑agent roles; instead, it relies on a single, unified instruction layer plus optional auto‑memory.
+
+A typical `.claude/` directory structure looks like:
+
+- **CLAUDE.md** — primary project instructions, coding style, architecture notes  
+- **auto/** — optional auto‑generated memory files created by Claude Code  
+- **rules/** (optional) — additional rule files for fine‑grained behaviour control  
+
+These files allow Claude Code to behave more like a teammate who understands your codebase, rather than a stateless assistant. They help enforce expectations such as asking clarifying questions before generating code, avoiding assumptions about missing context, or following specific project patterns.
+
+
 ------------------------------------------------------------------------
 
 ## 3. Leadership Concerns with GenAI Coding Tools
