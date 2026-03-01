@@ -70,6 +70,16 @@ An AI agent framework that can read and modify files, run commands, and automate
 Document on running Roocode pointing to local Ollama models: 
 https://docs.roocode.com/providers/ollama#:~:text=Roo%20Code%20supports%20running%20models,setup%20and%20a%20powerful%20computer.
 
+Roo Code can be guided using project‑local instruction files stored in a .roo directory. These files help the agent follow consistent rules across all developer machines. They are useful for enforcing expectations such as “never assume missing details,” “ask clarifying questions before generating code,” or “do not read certain configuration files.” Keeping these rules in the repository ensures Roo behaves predictably and aligns with your project’s conventions.
+
+A recommended structure for the .roo/rules/ directory is:
+- 01-general.md — project philosophy, architectural guidelines, naming conventions
+- 02-coding-style.md — linting rules, formatting standards, folder structure
+- 03-tech-stack.md — approved frameworks, libraries, and preferred patterns
+- 04-security.md — authentication rules, secrets handling, validation requirements
+- 
+These files act as persistent, shared instructions that shape how Roo interacts with the codebase and prevent unintentional deviations in behaviour.
+
 ### Continue.dev  
 
 Continue.dev is an open‑source AI coding assistant that runs as an extension inside existing IDEs such as VS Code and JetBrains. It provides chat, autocomplete, inline code edits, and optional agent‑style workflows, with the primary goal of improving developer productivity inside the editor. Its strength is tight IDE integration: autocomplete, quick edits, PR checks, and configurable MCP tools.
@@ -90,6 +100,8 @@ Using Ollama, you can build a fully local, free agentic IDE setup by pointing Co
 Kiro is a spec‑driven AI IDE built by Amazon, designed to behave less like a code autocomplete tool and more like a structured feature‑delivery system. You give it a prompt or workflow, and it first generates a formal spec document, then turns that into user stories and executable tasks. Each task becomes a unit of code generation, with Kiro maintaining consistency across files, tests, and project structure. It also supports automation hooks (for example, “whenever a new */py file is created, update the README”), making it feel like an opinionated, process‑first engineering environment rather than a traditional IDE. Unlike Roo Code or other AI‑augmented editors, Kiro is not model‑agnostic: it only supports Claude models because it runs entirely on AWS Bedrock, which currently exposes Claude but not OpenAI models. This makes Kiro more structured and enterprise‑aligned, while tools like Roo Code or Cursor are more flexible, open, and model‑agnostic.
 
 Kiro ends up costing more because its workflow sits on three separate pricing layers: a paid IDE subscription, AWS Bedrock request charges, and Claude model usage on top of Bedrock. Every feature run triggers multiple model calls (spec → stories → tasks → code → hooks), so token usage is naturally higher. In contrast, Roo Code with OpenAI is far cheaper because it has no IDE fee, no Bedrock middle layer, and you pay only for direct OpenAI model calls, which are already priced lower than Claude‑via‑Bedrock. For practical budgeting, Kiro is the high‑structure, high‑cost option; Roo Code with OpenAI is the flexible, low‑cost option.
+
+### Claude Code
 
 ------------------------------------------------------------------------
 
