@@ -121,6 +121,8 @@ These files allow Claude Code to behave more like a teammate who understands you
 
 You can also keep a more global .claude directory in your $HOME for workspace-wide instructions.
 
+If you already have an existing repository, you can run the `/init` command. This scans your project—source files, documentation, README.md, and other relevant context—and compiles that information into a `claude.md` file inside the `.claude` directory. By storing this context once, Claude no longer needs to re‑read the entire repository on every request, which significantly reduces token usage and speeds up subsequent interactions.
+
 ------------------------------------------------------------------------
 
 ## 3. Leadership Concerns with GenAI Coding Tools
