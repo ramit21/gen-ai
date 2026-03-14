@@ -103,29 +103,56 @@ Kiro ends up costing more because its workflow sits on three separate pricing la
 
 ### Claude Code
 
-Claude Code is an AI‑assisted development environment built around Anthropic’s Claude models, designed to work inside editors such as VS Code and Cursor. Other than IDE plugins, Claude can also be accessed by terminal or Claude web console. It focuses on conversational, context‑aware coding rather than simple autocomplete. Claude Code can read files, propose edits, refactor code, generate tests, and perform multi‑file reasoning, but it does not execute shell commands or act as a fully autonomous agent. Its strength lies in high‑quality reasoning, safe transformations, and natural‑language workflows.
+Claude Code is an AI‑assisted development environment built around Anthropic’s Claude models, designed to work inside editors such as VS Code and Cursor. Other than IDE plugins, Claude can also be accessed via the terminal or the Claude web console. It focuses on conversational, context‑aware coding rather than simple autocomplete. Claude Code can read files, propose edits, refactor code, generate tests, and perform multi‑file reasoning, but it does not execute shell commands or act as a fully autonomous agent. Its strength lies in high‑quality reasoning, safe transformations, and natural‑language workflows.
 
-Claude models in decreasing order of cost and efficiency: Opus, sonnet, Haiku.
+Claude models in decreasing order of capability and cost: **Opus**, **Sonnet**, **Haiku**.
 
-Claude has a free mode for web chat based interface, but for using with coding and itegration with IDEs/Terminal, you need to buy a pro or max account.
+Claude has a free mode for the web chat interface, but for coding workflows and IDE/terminal integration, you need a **Pro** or **Max** account. Always give small tasks and grow your app step by step; large tasks can consume tokens quickly.
 
 Claude Code supports multimodal input, which allows it to work directly from screenshots, UI mockups, diagrams, or design images. You can provide a screenshot of a webpage or application layout, and Claude can generate a complete HTML/CSS/JS implementation that matches the design. Because the workflow is conversational, you can iteratively refine the output—adjust spacing, change colors, add animations, convert to React, or restructure components—simply by chatting with the model. This makes Claude particularly effective for rapid prototyping, front‑end scaffolding, and design‑to‑code workflows.
 
 Claude Code also supports a project‑local configuration system through a `.claude/` directory. This directory allows you to define persistent instructions that shape how Claude behaves across sessions and across developer machines. The most common file is `CLAUDE.md`, which acts as a project‑level guide describing coding conventions, architectural expectations, naming rules, and behavioural constraints. Claude loads this file automatically and uses it as a baseline for all coding tasks.
 
-The `.claude/` directory may also contain auto‑generated memory files created by Claude Code itself. These files store patterns it has learned from your corrections and preferences, helping it maintain consistency without requiring repeated instructions. Unlike Roo Code, Claude does not use skills or multi‑agent roles; instead, it relies on a single, unified instruction layer plus optional auto‑memory.
+The `.claude/` directory may also contain auto‑generated memory files created by Claude Code itself. These files store patterns it has learned from your corrections and preferences, helping it maintain consistency without requiring repeated instructions. Unlike Roo Code, Claude does not use skills or multi‑agent roles; instead, it relies on a single unified instruction layer plus optional auto‑memory.
 
 A typical `.claude/` directory structure looks like:
 
 - **CLAUDE.md** — primary project instructions, coding style, architecture notes  
-- **auto/** — optional auto‑generated memory files created by Claude Code  
+- **auto/** — auto‑generated memory files created by Claude Code  
 - **rules/** (optional) — additional rule files for fine‑grained behaviour control  
 
 These files allow Claude Code to behave more like a teammate who understands your codebase, rather than a stateless assistant. They help enforce expectations such as asking clarifying questions before generating code, avoiding assumptions about missing context, or following specific project patterns.
 
-You can also keep a more global .claude directory in your $HOME for workspace-wide instructions.
+You can also keep a global `.claude` directory in your `$HOME` for workspace‑wide instructions.
 
 If you already have an existing repository, you can run the `/init` command. This scans your project—source files, documentation, README.md, and other relevant context—and compiles that information into a `claude.md` file inside the `.claude` directory. By storing this context once, Claude no longer needs to re‑read the entire repository on every request, which significantly reduces token usage and speeds up subsequent interactions.
+
+In the IDE extension chat window, typing `/` shows options such as switching models or uploading a file. Typing `@` followed by a filename lets you give instructions specific to that file.  
+Example:  
+`@MyServiceImpl.java add slf4j logging at the start of every method.`
+
+You can also ask Claude to commit code changes directly from the chat window; it will auto‑populate the commit message based on the modified files. You can reference a git commit ID and say:  
+`@NextFile.java apply similar changes to this file as done in git commit <id>`  
+Claude will inspect the commit and apply analogous changes.
+
+#### Claude Skills
+
+**Claude Skills** are reusable, modular instruction sets that teach Claude how to perform your workflows consistently—without you having to re‑explain your process every time. They act like “custom capabilities” that encode your expertise, procedures, and preferences into a package.
+
+While a `claude.md` file is injected into every prompt (and therefore consumes tokens on each request), **Claude Skills are loaded dynamically**. Every skill has metadata that Claude checks against your input prompt; if the metadata matches the task, Claude automatically pulls in the skill.
+
+If skills did not exist, Claude might search the internet or choose an arbitrary approach for the job. With standard skills, Claude performs tasks using consistent, vetted, and agreed‑upon workflows.
+
+Examples of Claude Skills include:  
+- PDF‑related skills (e.g., creating or modifying PDFs)  
+- Document‑related skills (e.g., DOCX editing)  
+- Design skills (e.g., generating diagrams or visual layouts)  
+- Workflow skills (e.g., multi‑step automation patterns)  
+
+**Where do skills live?**  
+- Anthropic’s official skills GitHub repository  
+- Third‑party marketplaces such as *skills.pub*  
+- MCP‑based integrations that expose external tools as skills
 
 ------------------------------------------------------------------------
 
