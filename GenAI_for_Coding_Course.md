@@ -135,6 +135,8 @@ You can also ask Claude to commit code changes directly from the chat window; it
 `@NextFile.java apply similar changes to this file as done in git commit <id>`  
 Claude will inspect the commit and apply analogous changes.
 
+Note that Claude cannot create your AWS resources, but it can generate IAC code, such as Terraform, to create AWS infrastructure.
+
 #### Claude Skills
 
 **Claude Skills** are reusable, modular instruction sets that teach Claude how to perform your workflows consistently—without you having to re‑explain your process every time. They act like “custom capabilities” that encode your expertise, procedures, and preferences into a package.
