@@ -19,7 +19,7 @@ A typical `.claude/` directory structure looks like:
 - **auto/** — auto‑generated memory files created by Claude Code  
 - **rules/** (optional) — additional rule files for fine‑grained behaviour control  
 
-Other than Claude.md at the project level, which is committed to Git, you can also use Claude.local.md added to .gitignore, or a file stored at the user level in the machine as well.
+Other than Claude.md at the project level, which is committed to Git, you can also use Claude.local.md added to .gitignore, or a file stored at the user level in the machine as well. You can type a prompt starting with a #, which adds the instruction to memory. You can choose to save the memory at project/local/global level, and accordingly the instruction is added to the respective Claude.md file
 
 These files allow Claude Code to behave more like a teammate who understands your codebase, rather than a stateless assistant. They help enforce expectations such as asking clarifying questions before generating code, avoiding assumptions about missing context, or following specific project patterns.
 
