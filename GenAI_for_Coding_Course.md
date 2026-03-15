@@ -121,6 +121,8 @@ A typical `.claude/` directory structure looks like:
 - **auto/** — auto‑generated memory files created by Claude Code  
 - **rules/** (optional) — additional rule files for fine‑grained behaviour control  
 
+Other than Claude.md at the project level, which is committed to Git, you can also use Claude.local.md added to .gitignore, or a file stored at the user level in the machine as well.
+
 These files allow Claude Code to behave more like a teammate who understands your codebase, rather than a stateless assistant. They help enforce expectations such as asking clarifying questions before generating code, avoiding assumptions about missing context, or following specific project patterns.
 
 You can also keep a global `.claude` directory in your `$HOME` for workspace‑wide instructions.
@@ -131,9 +133,21 @@ In the IDE extension chat window, typing `/` shows options such as switching mod
 Example:  
 `@MyServiceImpl.java add slf4j logging at the start of every method.`
 
+You can select one or more files using @, all these get selected in the context of(shown below the chat box of ice agents). Remember to unselect the file for later actions, which are not just focused on the files selected.
+
+If you open a file and select some lines of text, then those lines will be selected as the context of the Claude prompt window.
+
+Claud code can handle approx 200k tokens of context. To keep context clean and focused, you have a few options:
+- /exit to exit chat session
+- /clear to clear the entire session context and chat history
+- /compact command that compacts the chat and context into a small summary
+- Press Escape twice to rewind to the previous point in the session
+
 You can also ask Claude to commit code changes directly from the chat window; it will auto‑populate the commit message based on the modified files. You can reference a git commit ID and say:  
 `@NextFile.java apply similar changes to this file as done in git commit <id>`  
 Claude will inspect the commit and apply analogous changes.
+
+To give an image as context. You can also upload images to the prompt window by drag and drop. Eg, 'use the styling of the button image uploaded, apply the same styling to all buttons of our project'.
 
 Note that Claude cannot create your AWS resources, but it can generate IAC code, such as Terraform, to create AWS infrastructure.
 
