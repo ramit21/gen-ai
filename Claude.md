@@ -19,7 +19,7 @@ A typical `.claude/` directory structure looks like:
 - **auto/** — auto‑generated memory files created by Claude Code  
 - **rules/** (optional) — additional rule files for fine‑grained behaviour control  
 
-Other than Claude.md at the project level, which is committed to Git, you can also use Claude.local.md added to .gitignore, or a file stored at the user level in the machine as well. You can type a prompt starting with a #, which adds the instruction to memory. You can choose to save the memory at project/local/global level, and accordingly the instruction is added to the respective Claude.md file
+Other than Claude.md at the project level, which is committed to Git, you can also use Claude.local.md added to .gitignore, or a file stored at the user level in the machine as well. You can type a prompt starting with a #, which adds the instruction to memory. You can choose to save the memory at the project/local/global level, and accordingly, the instruction is added to the respective Claude.md file
 
 These files allow Claude Code to behave more like a teammate who understands your codebase, rather than a stateless assistant. They help enforce expectations such as asking clarifying questions before generating code, avoiding assumptions about missing context, or following specific project patterns.
 
@@ -28,7 +28,7 @@ You can also keep a global `.claude` directory in your `$HOME` for workspace‑w
 If you already have an existing repository, you can run the `/init` command. This scans your project—source files, documentation, README.md, and other relevant context—and compiles that information into a `claude.md` file inside the `.claude` directory. By storing this context once, Claude no longer needs to re‑read the entire repository on every request, which significantly reduces token usage and speeds up subsequent interactions.
 
 In the IDE extension chat window, typing `/` shows options such as switching models or uploading a file.
-You can give specific instructions in a md file, for example, ui-component.md, and in the prompt window, just say /ui-component and press enter. The Claude will read md file, and create code as per the instructions given in the file. You can also give specific instructions along with md file to be specific about what component to create and how, eg '/ui-component card | description'. Read the arguments passed as $ARGUMENTS inside the .md file. In ex given, we are passing 2 arguments - component name, and a description of the component. So refer [name] and [description] taken from $ARGUMENTS in the .md file. 
+You can give specific instructions in a md file, for example, ui-component.md, and in the prompt window, just say /ui-component and press enter. The Claude will read md file, and create code as per the instructions given in the file. You can also give specific instructions along with md file to be specific about what component to create and how, eg '/ui-component card | description'. Read the arguments passed as $ARGUMENTS inside the .md file. In ex given, we are passing 2 arguments - the component name, and a description of the component. So refer [name] and [description] taken from $ARGUMENTS in the .md file. 
 
 Typing `@` followed by a filename lets you give instructions specific to that file.  
 Example:  
@@ -49,6 +49,8 @@ You can also ask Claude to commit code changes directly from the chat window; it
 Claude will inspect the commit and apply analogous changes.
 
 To give an image as context. You can also upload images to the prompt window by drag and drop. Eg, 'use the styling of the button image uploaded, apply the same styling to all buttons of our project'.
+
+You can start a prompt with a ! to run a bash shell command directly, eg. ! git status 
 
 Note that Claude cannot create your AWS resources, but it can generate IAC code, such as Terraform, to create AWS infrastructure. It is important to review the IAC code before changing the AWS infrastructure.
 
@@ -91,7 +93,7 @@ Examples of Claude Skills include:
 - Third‑party marketplaces such as *skills.pub*  
 - MCP‑based integrations that expose external tools as skills
 
-**Making a new skill**: TODO
+**Making a new skill**: You can define cloud skill as a json file under .claude/skills/. Each file includes name, description, input schema, command to run, and optional output schema, env, and  timeout.
 
 #### Operational Modes
 Claude Code uses specialised modes to balance AI autonomy with developer oversight. You can toggle these during a session or set them via startup flags.
@@ -100,5 +102,22 @@ Claude Code uses specialised modes to balance AI autonomy with developer oversig
 - Auto-Accept Mode: Claude applies file edits automatically, though it may still prompt for high-risk shell commands (e.g., git push).
 
 ### Subagents
+Subagents are specialised, short-lived AI workers spawned by the main orchestrator to handle specific, high-focus tasks.
+When you create your agent, you also tell what level of permissions it has eg reading code, writing code, committing to git etc.
+Agents' related data is stored in the .claude/agents/ subdirectory. These md files list the tools and MCP servers that the agent can invoke to complete the task.
 
+Eg. of subagents:
+- Unit test creator
+- UX design reviewer
+- Security auditer: read-only permission on code files, runs scans and checks for vulnerabilities. Example Prompt: "Run a security audit subagent on the /api/v2 folder. Flag any potential SQL injection points or unmasked PII."
+- Documentation updater: keeps Readme.md and inline code doumentation upto date
+
+Benefit of using Subagent: "Context Separation Principle."
+By offloading heavy lifting to a subagent, you achieve two things simultaneously:
+- Computational Parallelism: Tasks like "scanning 50 files for security flaws" and "generating 20 unit tests" happen in their own lanes.
+- Cognitive Clarity: The main agent’s "brain" (working memory) stays 100% focused on your high-level goals. It only receives the final signal (the results) from the subagent, rather than all the background noise (the trial-and-error) generated during the process.
+
+ 
 ### Hooks
+
+Claude Hooks are small automation triggers that run automatically at specific moments in Claude Code’s workflow — for example, before a tool runs, after a tool runs, or when a session starts. They let you enforce rules, run scripts, or inject context without relying on the AI to remember. eg. Slack/Teams notification hooks, auto-linting hooks etc.
