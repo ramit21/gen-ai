@@ -149,7 +149,16 @@ Claude will inspect the commit and apply analogous changes.
 
 To give an image as context. You can also upload images to the prompt window by drag and drop. Eg, 'use the styling of the button image uploaded, apply the same styling to all buttons of our project'.
 
-Note that Claude cannot create your AWS resources, but it can generate IAC code, such as Terraform, to create AWS infrastructure.
+Note that Claude cannot create your AWS resources, but it can generate IAC code, such as Terraform, to create AWS infrastructure. It is important to review the IAC code before changing the AWS infrastructure.
+
+**Claude Tools**
+Claude is equipped with a suite of built-in tools designed to perform technical actions directly within a development environment.
+
+Tool Capabilities: Key utilities include bash for command execution, grep for pattern searching, and file manipulation tools. You can find the full technical specifications in the AnthropictTools reference- https://code.claude.com/docs/en/tools-reference.
+
+Security & Permissions: To ensure safety, each tool includes a configurable permission setting. This determines whether the model can execute a command autonomously or if it must prompt the user for explicit approval first. If you're setting up a CI/CD pipeline or a restricted environment, the permission settings are your best friend for balancing automation with security.
+
+Note that Claude does not have a standalone Git tool; instead, it executes git commands through the provided bash tool.
 
 #### Claude Skills
 
