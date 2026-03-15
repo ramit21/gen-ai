@@ -103,6 +103,7 @@ Kiro ends up costing more because its workflow sits on three separate pricing la
 
 ### Claude Code
 
+[📘 Read about Claude code here](./Claude.md)
 
 
 
