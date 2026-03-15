@@ -151,7 +151,7 @@ To give an image as context. You can also upload images to the prompt window by 
 
 Note that Claude cannot create your AWS resources, but it can generate IAC code, such as Terraform, to create AWS infrastructure. It is important to review the IAC code before changing the AWS infrastructure.
 
-**Claude Tools**
+#### Claude Tools
 Claude is equipped with a suite of built-in tools designed to perform technical actions directly within a development environment.
 
 Tool Capabilities: Key utilities include bash for command execution, grep for pattern searching, and file manipulation tools. You can find the full technical specifications in the AnthropictTools reference- https://code.claude.com/docs/en/tools-reference.
@@ -179,6 +179,11 @@ Examples of Claude Skills include:
 - Third‑party marketplaces such as *skills.pub*  
 - MCP‑based integrations that expose external tools as skills
 
+
+TODO:
+- Claude Hooks?
+- Subagents
+- How to make a new skill?
 ------------------------------------------------------------------------
 
 ## 3. Leadership Concerns with GenAI Coding Tools
