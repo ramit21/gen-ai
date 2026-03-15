@@ -179,6 +179,11 @@ Examples of Claude Skills include:
 - Third‑party marketplaces such as *skills.pub*  
 - MCP‑based integrations that expose external tools as skills
 
+#### Operational Modes
+Claude Code uses specialised modes to balance AI autonomy with developer oversight. You can toggle these during a session or set them via startup flags.
+- Plan Mode: Read-only exploration. Creates a Plan.md file for review before it touches any code.
+- Normal Mode (Default): Takes approval before code changes
+- Auto-Accept Mode: Claude applies file edits automatically, though it may still prompt for high-risk shell commands (e.g., git push).
 
 TODO:
 - Claude Hooks?
