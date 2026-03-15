@@ -129,7 +129,10 @@ You can also keep a global `.claude` directory in your `$HOME` for workspace‑w
 
 If you already have an existing repository, you can run the `/init` command. This scans your project—source files, documentation, README.md, and other relevant context—and compiles that information into a `claude.md` file inside the `.claude` directory. By storing this context once, Claude no longer needs to re‑read the entire repository on every request, which significantly reduces token usage and speeds up subsequent interactions.
 
-In the IDE extension chat window, typing `/` shows options such as switching models or uploading a file. Typing `@` followed by a filename lets you give instructions specific to that file.  
+In the IDE extension chat window, typing `/` shows options such as switching models or uploading a file.
+You can give specific instructions in a md file, for example, ui-component.md, and in the prompt window, just say /ui-component and press enter. The Claude will read md file, and create code as per the instructions given in the file.
+
+Typing `@` followed by a filename lets you give instructions specific to that file.  
 Example:  
 `@MyServiceImpl.java add slf4j logging at the start of every method.`
 
