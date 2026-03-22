@@ -220,6 +220,7 @@ You can:
     -   User Stories
     -   Tasks
 
+You can now use Google Stitch, using which you can create designs (using prompts) which get uploaded to Figma. This is known as Vibe Design.
 ------------------------------------------------------------------------
 
 ## 8. Generating Architecture Diagrams
