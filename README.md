@@ -182,7 +182,9 @@ Useful code demos:
 - https://www.youtube.com/watch?v=MmtVJmcOYDg
 
 ## Fine-tuning and Preference Alignment
-**Fine-tuning**: Train the model on new data, but change only a few parameters (weights and biases), considering the cost of a full training in mind. A full pre-training, for example, TinyLlama, a model with 1.1B parameters, requires 16 A100-40G GPUs to run for 90 days. 2 popular techniques:
+**Fine-tuning**: Train the model on new data, but change only a few parameters (weights and biases), considering the cost of a full training in mind. A full pre-training, for example, TinyLlama, a model with 1.1B parameters, requires 16 A100-40G GPUs to run for 90 days. Training data is usually provided as files, which is tokenised before being used for training. Don't confuse using RAG for training, as it is more for inference.
+
+2 popular techniques:
 1. LoRA (Low Rank Adoption): Update a small no of parameters
 2. QLoRA (Quantised LoRA): Uses even less memory than LoRA as it works on quantised numbers. This type of fine tuning can even be done on regular computers.
 
