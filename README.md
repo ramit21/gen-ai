@@ -189,5 +189,58 @@ Useful code demos:
 **Preference Alignment**: Preference Alignment is a critical phase in AI training where a model is fine-tuned to ensure its outputs match human values, safety standards, and specific user expectations. Without alignment, an AI is just a mirror of the internet—it can be biased, toxic, or dangerous.
 
 2 popular techniques:
-1. **RLHF (Reinforcement Learning from Human Feedback)**: Eg. Model produces 2 outputs that human then selects, and the model learns from the selection. This technique is also called **PPO (Proximal Policy Optimization)**.
+1. **RLHF (Reinforcement Learning from Human Feedback)**: Eg. Model produces 2 outputs that the human then selects, and the model learns from the selection. This technique is also called **PPO (Proximal Policy Optimization)**.
 2. **DPO (Direct Preference Optimization)**: Getting more popular. It looks at the "Better" and "Worse" pairs and directly adjusts the AI's internal math to increase the probability of the good answer while decreasing the bad one. 
+
+## Evaluation
+### Traditional metrics
+
+1. Word Error Rate (WER):
+
+Used primarily in speech recognition and machine translation. 
+
+Measures the edit distance between a reference text and the system output
+
+Calculated as: (Substitutions + Insertions + Deletions) / Number of Words in Reference
+
+Lower WER indicates better performance
+
+2. Exact Match (EM):
+
+Used in question answering and other tasks requiring precise answers
+
+Binary metric: 1 if the predicted answer exactly matches the reference, 0 otherwise
+
+Simple but strict; doesn't account for partial correctness
+
+3. BLEU (Bilingual Evaluation Understudy):
+
+Primarily used in machine translation
+
+Measures the overlap of n-grams between the reference and candidate translations
+
+Scores range from 0 to 1, with 1 being a perfect match
+
+Criticised for not always correlating well with human judgments
+
+4. ROUGE (Recall-Oriented Understudy for Gisting Evaluation):
+
+Used mainly in text summarisation
+
+Measures the overlap between generated summaries and reference summaries
+
+Various versions: ROUGE-N (n-gram overlap), ROUGE-L (longest common subsequence), etc.
+
+Higher ROUGE scores indicate better performance
+
+### Embedding Based Methods
+
+These methods leverage the power of dense vector representations of words, sentences, or documents to assess similarity and quality in a more nuanced way than traditional lexical-matching metrics.
+
+1. BERTScore: Uses contextual embeddings from models like BERT. Computes pairwise cosine similarities between tokens in candidate and reference texts. Claims to correlate better with human judgments than traditional metrics
+2. MoverScore: Combines Word Mover's Distance with contextual embeddings. Balances semantic similarity with token importance.
+3. BLEURT (Bilingual Evaluation Understudy with Representations from Transformers: Fine-tunes a pre-trained language model on human ratings. Produces a learned metric that correlates well with human judgments.
+
+### Evaluation tools
+OpenAI Evals, Ragas (for evaluating RAGs), LangSmith (monitor LLM application), Hugging Face Evaluate, EleutherAI LM Evaluation Harness
+
