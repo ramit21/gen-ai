@@ -180,3 +180,14 @@ Useful code demos:
 - https://www.youtube.com/watch?v=VVKcSf6r3CM
 - https://www.youtube.com/watch?v=kj6Zb_KGz0g
 - https://www.youtube.com/watch?v=MmtVJmcOYDg
+
+## Fine-tuning and Preference Alignment
+**Fine-tuning**: Train the model on new data, but change only a few parameters (weights and biases), considering the cost of a full training in mind. A full pre-training, for example, TinyLlama, a model with 1.1B parameters, requires 16 A100-40G GPUs to run for 90 days. 2 popular techniques:
+1. LoRA (Low Rank Adoption): Update a small no of parameters
+2. QLoRA (Quantised LoRA): Uses even less memory than LoRA as it works on quantised numbers. This type of fine tuning can even be done on regular computers.
+
+**Preference Alignment**: Preference Alignment is a critical phase in AI training where a model is fine-tuned to ensure its outputs match human values, safety standards, and specific user expectations. Without alignment, an AI is just a mirror of the internet—it can be biased, toxic, or dangerous.
+
+2 popular techniques:
+1. **RLHF (Reinforcement Learning from Human Feedback)**: Eg. Model produces 2 outputs that human then selects, and the model learns from the selection. This technique is also called **PPO (Proximal Policy Optimization)**.
+2. **DPO (Direct Preference Optimization)**: Getting more popular. It looks at the "Better" and "Worse" pairs and directly adjusts the AI's internal math to increase the probability of the good answer while decreasing the bad one. 
