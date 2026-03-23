@@ -159,13 +159,13 @@ Because of parralelism, it is faster, but con is that multiple api calls can inc
 ```
 chain = load_summarize_chain(llm, chain_type="refine")
 ```
-
+----------------------------
 ## Ollama
 [📘 View the full Ollama Course](./ollama.md)
-
+----------------------------
 ## GenAI for Coding
 [📘 Use of GenAI for coding Course](./GenAI_for_Coding_Course.md)
-
+----------------------------
 ## OpenAI
 
 OpenAI provides APIs for chat completion, text generation, moderation, and several specialised model families. For text‑based tasks, it offers models like 'GPT‑4' and 'GPT‑3.5'. For audio, OpenAI provides 'Whisper' for speech‑to‑text transcription. For image generation, it offers 'DALL·E', and for video generation, newer models ('Sora') extend that capability further. Each API endpoint is designed for a specific modality, making it easy to integrate natural language, audio, and visual intelligence into applications.
@@ -180,7 +180,7 @@ Useful code demos:
 - https://www.youtube.com/watch?v=VVKcSf6r3CM
 - https://www.youtube.com/watch?v=kj6Zb_KGz0g
 - https://www.youtube.com/watch?v=MmtVJmcOYDg
-
+----------------------------
 ## Fine-tuning and Preference Alignment
 **Fine-tuning**: Train the model on new data, but change only a few parameters (weights and biases), considering the cost of a full training in mind. A full pre-training, for example, TinyLlama, a model with 1.1B parameters, requires 16 A100-40G GPUs to run for 90 days. Training data is usually provided as files, which is tokenised before being used for training. Don't confuse using RAG for training, as it is more for inference.
 
@@ -248,4 +248,23 @@ OpenAI Evals, Ragas (for evaluating RAGs), LangSmith (monitor LLM application), 
 
 ## Development using LLM
 You can access LLM models either via the internet by paid subscriptions, or by deploying open-source models like lama3 locally. Web environments like Google Colab and Lightning Studio allow you to access GPUs with pay-as-you-go model. You can access open-source models via HuggingFace, Groq, or Ollama.
+----------------------------
+## RAG techniques
+
+ RAG techniques that help improve the performance of LLM applications:
+
+1. **Context Enrichment Window**: While chunking the data before uploading to RAG, maintain some overlap. This helps maintain some context between different chunks, and that helps the retrieval process.
+2. **Fusion Retrieval**: This system integrates two powerful document retrieval techniques: vector-based similarity search and keyword-based BM25 retrieval. By leveraging the strengths of both approaches, the Fusion Retrieval system aims to enhance the quality and relevance of the retrieved documents. BM25 works similarly to TF-IDF in search engines; it looks at the frequency of the input query in the chunks and ranks the documents accordingly. The Vector search and BM25 search are performed in parallel, and the results are then fused and reranked using the 'Reciprocal rank fusion' algorithm, which finally returns the top k documents. Read more here - https://varunbhanot.substack.com/p/day-16-going-beyond-basic-rag-part
+3. **Query Transformation**: The input prompt is rewritten to make it more impactful before fetching the RAG. 3 types:
+   3.1. Query rewriting: Reformulates queries to be more specific and detailed, improving the likelihood of retrieving relevant information.
+   3.2. Step-back Prompting: Generates a higher-level query for RAG retrieval. e.g., if the prompt is asking about 'machine learning', the step back would change it to 'artificial intelligence' to make it more generic.
+   3.3. Sub-query Decomposition: breaks down complex queries into simpler sub-queries, enabling the retrieval of information covering different aspects of a complex query.
+4. **Reranking**: After similarity search retrieval from RAG, use LLM or a Cross Encoder to re-rank the results.
+5. **Feedback Loop**: User feedback is taken on the generated output. The vector store is frequently updated as per user feedback.
+6. **Adaptive RAG system**: adapt the retrieval strategy based on the type of query. By leveraging Language Models (LLMs) at various stages, we can provide more accurate and relevant information to users. Apply different retreival based on prompt intention: factual, analytical, opinion, contextual (user input). 
+
+   
+
+
+
 
