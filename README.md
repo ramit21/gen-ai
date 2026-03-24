@@ -263,7 +263,12 @@ You can access LLM models either via the internet by paid subscriptions, or by d
 5. **Feedback Loop**: User feedback is taken on the generated output. The vector store is frequently updated as per user feedback.
 6. **Adaptive RAG system**: adapt the retrieval strategy based on the type of query. By leveraging Language Models (LLMs) at various stages, we can provide more accurate and relevant information to users. Apply different retreival based on prompt intention: factual, analytical, opinion, contextual (user input). 
 
-   
+----------------------------
+## AI Agents vs Agentic AI
+An AI Agent is a specific software that invokes an LLM, along with external tools/API/databases to achieve a particular task. eg. Roo code (open source version of Cline). 
+An AI agent can be zero-shot, few-shot (when the agent asks questions to gather more info before performing a task), or React docstore agent (uses a knowledge base to fetch specific information).
+
+Agentic AI refers to an architectural framework or a system that exhibits high-level "agency." It coordinates multiple agents and tools to achieve a broad, complex goal. It is proactive. eg. Agentic AI.
 
 
 
