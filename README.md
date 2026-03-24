@@ -245,8 +245,9 @@ These methods leverage the power of dense vector representations of words, sente
 
 ### Evaluation tools
 OpenAI Evals, Ragas (for evaluating RAGs), LangSmith (monitor LLM application), Hugging Face Evaluate, EleutherAI LM Evaluation Harness
-
+----------------------------
 ## Development using LLM
+
 You can access LLM models either via the internet by paid subscriptions, or by deploying open-source models like lama3 locally. Web environments like Google Colab and Lightning Studio allow you to access GPUs with pay-as-you-go model. You can access open-source models via HuggingFace, Groq, or Ollama.
 ----------------------------
 ## RAG techniques
