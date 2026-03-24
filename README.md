@@ -270,6 +270,12 @@ An AI agent can be zero-shot, few-shot (when the agent asks questions to gather 
 
 Agentic AI refers to an architectural framework or a system that exhibits high-level "agency." It coordinates multiple agents and tools to achieve a broad, complex goal. It is proactive. eg. Agentic AI.
 
+----------------------------
+## RAG - Vector store vs Knowledge Graphs
+
+Both RAGs and knowledge graphs help enrich the context before invoking LLMs. The best approach is to use both if required, aka 'GraphRAG'.
+Vector Store is well-suited for storing large volumes of unstructured data as embeddings, while KGs, stored in Graph DBs like Neo4j/Amazon Neptune, help store real-world relationships.
+Eg, A graph KG of a customer to its accounts to its transactions. The prompt asks why this customer was blocked. The KG retrieval helps with the context of suspicious transactions that a customer would have performed.
 
 
 
