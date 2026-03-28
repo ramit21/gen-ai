@@ -124,8 +124,15 @@ Lanchain tools help abstract it, and calls the underlying model's API as per the
 5. Backed by vector store: save user interactions as embeddings in the vector store. This adds to latency and cost.
 
 https://python.langchain.com/v0.1/docs/modules/memory/types/buffer/.
- 
-**LangGraph**: LangGraph is a framework developed by LangChain for building stateful, multi-actor (incl human interaction), multi-agentinc applications. 
+
+**Langchain hub**: LangChain Hub is a platform where users can find and share commonly used prompts, chains, agents, 
+and other components for building AI applications with LangChain. https://smith.langchain.com/hub
+
+**LlamaIndex**: is an alternate framework to Langchain for developing LLM applications.
+LangChain is more versatile and suitable for a wide range of NLP applications, while LlamaIndex excels in data indexing and retrieval tasks.
+
+## LangGraph
+LangGraph is a framework developed by LangChain for building stateful, multi-actor (incl human interaction), multi-agentinc applications. 
 Think about different nodes in graph invoking different LLMs suited for that particular stage. Think about step functions with lambda as an analogy.
 
 **LangGraph vs LangChain**: 
@@ -136,7 +143,7 @@ Think about different nodes in graph invoking different LLMs suited for that par
 | Limited state management   | Advanced persistent state     |
 | Simple chain  | Advanced persistent state     |
 
-Observability is even more important for multi-agent systems, not just for production reliability, but also because multi agent systems can quickly consume the allowed model tokens. Popular tools: Langfuse, Opik. For eg. when using Opik, the code looks like below, you put @track annotation to track a LLM node function.:
+**Observability** is even more important for multi-agent systems, not just for production reliability, but also because multi agent systems can quickly consume the allowed model tokens. Popular tools: Langfuse, Opik. For eg. when using Opik, the code looks like below, you put @track annotation to track a LLM node function.:
 ```
 from opik import track
 
@@ -144,11 +151,11 @@ from opik import track
 async def process_statement_workflow(file_path: str, user_id: str) -> OutputState:
 ```
 
-**Langchain hub**: LangChain Hub is a platform where users can find and share commonly used prompts, chains, agents, 
-and other components for building AI applications with LangChain. https://smith.langchain.com/hub
-
-**LlamaIndex**: is an alternate framework to Langchain for developing LLM applications.
-LangChain is more versatile and suitable for a wide range of NLP applications, while LlamaIndex excels in data indexing and retrieval tasks.
+**Memory types**:
+1. Working Memory: short term, eg conversationBufferMemory
+2. Episodic Memory: long term, vector similarity search, includes user interaction history.
+3. Semantic Memory: long term, embeddings + metadata, includes user preference, domain knowledge, and other factual knowledge
+4. Procedural Memory: long term, optimised prompts and workflow templates, key value based.
 
 ## Token limitation
 
