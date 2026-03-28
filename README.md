@@ -23,11 +23,12 @@ Generative AI concepts
 5. People and adoption: Train people, and refine roles.
 
 **Q. How is LLMOps different to MLOps:**
-1. Internal/external model hub: designed for managing LLMs specifically designed for fine tuning.
-2. Fine tuning the model
-3. Vector Database
-4. Model Serving - specialised real time APIs for deployed LLM models
-5. Human feedback in monitoring and evaluation.
+1. MLOps focuses on training a model from scratch, LLMOps more on fine tuning an existing model.
+2. MLOps evluates well defined metrics like F1 Score, recall, wheras LLMOps relies on more complex metrics like Bleu score, human feedback etc.
+3. MLOps tracks model drift and performance, LLMops tracks prompts and completion pairs (ouput token length, latency etc)
+
+Popular LLMOps tools: Google cloud vertex AI, Databricks, Valohi, Ollama, BentoML, Kubeflow etc.
+ 
 
 **Pros that Gen AI will bring to soceity**
 1. Increase productivity and efficiency.
