@@ -136,6 +136,7 @@ Think about different nodes in graph invoking different LLMs suited for that par
 | Limited state management   | Advanced persistent state     |
 | Simple chain  | Advanced persistent state     |
 
+Observability is even more important for multi-agent systems, not just for production reliability, but also because multi agent systems can quickly consume the allowed model tokens. Popular tools: Langfuse, Opik.
 
 **Langchain hub**: LangChain Hub is a platform where users can find and share commonly used prompts, chains, agents, 
 and other components for building AI applications with LangChain. https://smith.langchain.com/hub
