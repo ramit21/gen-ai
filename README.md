@@ -125,16 +125,16 @@ Lanchain tools help abstract it, and calls the underlying model's API as per the
 
 https://python.langchain.com/v0.1/docs/modules/memory/types/buffer/.
  
-**LangGraph**: LangGraph is a framework developed by LangChain for building and scaling agentic applications. 
-It allows developers to create stateful, multi-actor (incl human interaction) applications using LLMs.
-Think about step functions with lambda as an analogy.
+**LangGraph**: LangGraph is a framework developed by LangChain for building stateful, multi-actor (incl human interaction), multi-agentinc applications. 
+Think about different nodes in graph invoking different LLMs suited for that particular stage. Think about step functions with lambda as an analogy.
 
 **LangGraph vs LangChain**: 
 
-| Header 1 | Header 2 | Header 3 |
-| -------- | -------- | -------- |
-| Row 1    | Data     | More     |
-| Row 2    | Data     | More     |
+| LangChain | LangGraph | 
+| -------- | -------- |
+| Sequential chain    | Graph based workflows     |
+| Limited state management   | Advanced persistent state     |
+| Simple chain  | Advanced persistent state     |
 
 
 **Langchain hub**: LangChain Hub is a platform where users can find and share commonly used prompts, chains, agents, 
