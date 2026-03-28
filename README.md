@@ -130,8 +130,11 @@ It allows developers to create stateful, multi-actor (incl human interaction) ap
 Think about step functions with lambda as an analogy.
 
 **LangGraph vs LangChain**: 
-| LangChain| Langraph|
-| Sequential chains| Graph based workflows|
+
+| Header 1 | Header 2 | Header 3 |
+| -------- | -------- | -------- |
+| Row 1    | Data     | More     |
+| Row 2    | Data     | More     |
 
 
 **Langchain hub**: LangChain Hub is a platform where users can find and share commonly used prompts, chains, agents, 
