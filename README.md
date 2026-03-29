@@ -1,6 +1,20 @@
 # gen-ai
 Generative AI concepts
 
+## Deterministic vs non-deterministic AI models
+
+Gen AI is a non-deterministic AI model, as ite generates input based on randomness and probabilities. 
+
+Traditional AI models  can be deterministic or non-deterministic depending on their implementation. Here's a quick rundown:
+
+Regression: Typically deterministic. Given the same input data, a regression model will produce the same output, such as predicting house prices or stock trends.
+
+Clustering: Can be both. Methods like K-means can be non-deterministic due to random initialization, leading to different cluster assignments on different runs.
+
+Reinforcement Learning: Often non-deterministic. The same action can lead to different outcomes due to the environment's dynamics and exploration strategies.
+
+Classification: Usually deterministic. Algorithms like decision trees and logistic regression produce consistent results. However, models like neural networks can exhibit non-determinism due to random weight initialization.
+
 ## Gen AI fundamentals
 
 **Language Modeling**: Given a sequence of words, predicting the next word with highest probability.
@@ -40,7 +54,7 @@ Popular LLMOps tools: Google cloud vertex AI, Databricks, Valohi, Ollama, BentoM
 
 1.1. Privacy: current models don't have a 'forgetting' feature for personal use; models are used on large amounts of data that may include someone's personal data.
 
-1.2. Security of the model: eg. 'prompt injection' to generate for malicious code, or make the model reveal confidential/incorrect information.
+1.2. Security. Traditional security measures do not suffice for GenAI, as it is undeterministic, works with natural langage, and uses unstrcutured data. Refer OWASP section below.
 
 1.3. Intellectual Property protection: models may come with legal terms and condition on how it should be used, and or if it can be used for commercial purpose etc. There are multiple region specific AI regulations also coming up quick and fast that one needs to adhere to.
 
@@ -62,20 +76,13 @@ Popular LLMOps tools: Google cloud vertex AI, Databricks, Valohi, Ollama, BentoM
 2. Model auditing: auditing the model before public release.
 3. Application auditing: assess the risk based on user utilisation. 
 
-** Deterministic vs non-deterministic AI models:**
+## OWASP LLM top 10
 
-Gen AI is a non-deterministic AI model, as ite generates input based on randomness and probabilities. 
-
-Traditional AI models  can be deterministic or non-deterministic depending on their implementation. Here's a quick rundown:
-
-Regression: Typically deterministic. Given the same input data, a regression model will produce the same output, such as predicting house prices or stock trends.
-
-Clustering: Can be both. Methods like K-means can be non-deterministic due to random initialization, leading to different cluster assignments on different runs.
-
-Reinforcement Learning: Often non-deterministic. The same action can lead to different outcomes due to the environment's dynamics and exploration strategies.
-
-Classification: Usually deterministic. Algorithms like decision trees and logistic regression produce consistent results. However, models like neural networks can exhibit non-determinism due to random weight initialization.
-
+OWASP has come up with top 10 vunerabilities for LLMs just like they have a list for web security. Some of the top featured issues are:
+1. Prompt injection
+2. Sensitive info leakage
+3. Supply chain vulnerabilities: Third-party models, datasets, or plugins - each one is a potential attack vector. Read about LightLLM attack.
+4. System Prompt Leakage: By using role play; uses authoritative language to convince the model that they have the right to see the background code; asking model to give intermediate system instructions in a bse64 encoded output.
 ----------------------------
 
 ## Types of Gen AI models
