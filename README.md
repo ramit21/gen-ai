@@ -190,6 +190,11 @@ Because of parralelism, it is faster, but con is that multiple api calls can inc
 chain = load_summarize_chain(llm, chain_type="refine")
 ```
 ----------------------------
+## EDD - Evaluation driven development
+Most Gen AI POCs do not reach production, as gen ai is undermenisitc, and works on unstructured data. Hence POCs might start failing in prod with issues like hallucination, latency etc. Solution is EDD - where monitoring becomes part of your development from day 1. 
+
+
+----------------------------
 ## Ollama
 [📘 View the full Ollama Course](./ollama.md)
 ----------------------------
