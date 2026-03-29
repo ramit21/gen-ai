@@ -238,8 +238,14 @@ These diagrams can represent:
 -   Deployment pipelines
 
 ------------------------------------------------------------------------
+## 9. Frontend development
 
-## 9. How to choose a model
+**Google Stitch** acts as an "AI-native design canvas" where you generate high-fidelity UI layouts from natural language or voice, which can then be exported directly to Figma (preserving layers and Auto Layout) or piped into Claude Code via MCP for initial code generation.
+
+**Drawbridge** then closes the loop by allowing you to visually annotate your live local website—literally pointing at specific UI sections to leave "Figma-style" comments—which are sent as structured tasks (including screenshots and HTML selectors) to Claude Code for precise, pixel-perfect refining.
+
+------------------------------------------------------------------------
+## 10. How to choose a model
 
 Choosing a model is a balance between **accuracy**, **speed**, **hardware limits**, and **cost**. The three variables that matter most are **model size**, **architecture (dense vs MoE)**, and **quantisation level**.
 
