@@ -77,7 +77,7 @@ Popular LLMOps tools: Google cloud vertex AI, Databricks, Valohi, Ollama, BentoM
 3. Application auditing: assess the risk based on user utilisation. 
 
 **MOE vs MOE models**
-Mixture-of-Experts (MoE) models offer high-efficiency, fast-inference performance by activating only a subset of parameters per token, whereas dense models activate all parameters for every input.
+Mixture-of-Experts (MoE) models offer high-efficiency, fast-inference performance by activating only a subset of parameters per token, whereas dense models activate all parameters for every input. Eg of MOE: Gemma4, eg. of dense: Qwen3.5 models.
 
 ## OWASP LLM top 10
 
