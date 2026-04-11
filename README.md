@@ -76,6 +76,9 @@ Popular LLMOps tools: Google cloud vertex AI, Databricks, Valohi, Ollama, BentoM
 2. Model auditing: auditing the model before public release.
 3. Application auditing: assess the risk based on user utilisation. 
 
+**MOE vs MOE models**
+Mixture-of-Experts (MoE) models offer high-efficiency, fast-inference performance by activating only a subset of parameters per token, whereas dense models activate all parameters for every input.
+
 ## OWASP LLM top 10
 
 OWASP has come up with top 10 vunerabilities for LLMs just like they have a list for web security. Some of the top featured issues are:
