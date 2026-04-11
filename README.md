@@ -77,7 +77,20 @@ Popular LLMOps tools: Google cloud vertex AI, Databricks, Valohi, Ollama, BentoM
 3. Application auditing: assess the risk based on user utilisation. 
 
 **MOE vs MOE models**
+
 Mixture-of-Experts (MoE) models offer high-efficiency, fast-inference performance by activating only a subset of parameters per token, whereas dense models activate all parameters for every input. Eg of MOE: Gemma4, eg. of dense: Qwen3.5 models.
+
+**VRAM vs RAM**
+
+VRAM (Video RAM): This is the high-speed memory physically soldered onto your GPU. It is extremely fast but very limited in size (e.g., 8GB, 12GB, or 24GB on a high-end card).
+
+When you run an LLM, the entire "brain" (the model weights) must be loaded into memory. The AI loader (like Ollama, LM Studio, or llama.cpp) checks the file size of the model:
+ - If it fits: The model is placed entirely in VRAM. This is the "Gold Standard."
+ - If it's too big: The loader has to make a choice. It can either offload some layers to the GPU and keep the rest in RAM, or run the whole thing in RAM.
+
+The speed of an LLM is almost entirely determined by Memory Bandwidth—how fast the weights can be fed to the processor. VRAM feeds data to CPU very fast, and hence if model is mostly loaded into VRAM, it will perfrom fast. If most parts end up in RAM, the data flows very slowly to CPU. So even if you have a powerful CPU, the model will perform very slowly.
+
+Thats why qunatization is used - to fit large models fit into small VRAM memory.
 
 ## OWASP LLM top 10
 
