@@ -53,6 +53,8 @@ Transitioning to AgentCore is essential for banking-grade reliability:
 
 In this lesson, we move from "Instruction-based" agents to "Code-based" agents using the **AgentCore SDK**. This allows us to use standard libraries like LangChain while benefiting from AWS managed infrastructure.
 
+See eg. of included Python agent (agent_for_agent_core.py) that uses Langchain. 
+
 ### Core Differences in the Code:
 * **Annotations (`@Agent`):** Replaces manual prompt engineering with a structured definition that AWS uses to register the agent in the **AgentCore Gateway**.
 * **Managed Imports:** We use `aws_agentcore` to handle the "Heavy Lifting" of security and networking.
@@ -67,9 +69,7 @@ Unlike standard LLMs that have a "Goldfish Memory" (forgetting everything once t
 
 ---
 
-### Practical:
-
-See eg. of Python agent (agent_for_agent_core.py) that uses Langchain. Steps to deploy it on agent core:
+### Steps to Deploy to AWS AgentCore:
 
 1.  **Containerize:** AgentCore agents run as containers. Create a `Dockerfile` using the `public.ecr.aws/agentcore/python:3.11` base image.
 2.  **Push to ECR:** Upload your image to an **Amazon Elastic Container Registry** (ECR) repository.
