@@ -113,6 +113,8 @@ You can control how and when the steering files get loaded into your prompt cont
 #### Kiro Agent Skills
 On demand capabilities. Unlike Steering, which is just Markdown context, Skills often include executable scripts and assets.
 
+Skills are portable, can can be used with other coding agetns like Claude.
+
 How they are loaded:
 
 Skills use Progressive Disclosure to save your context window.
@@ -172,9 +174,10 @@ if __name__ == "__main__":
 ```
 
 ### Kiro Powers
-Prepackaged curated bundles that include MCP servers, steering files, and hooks.
-E
-g. The "Aurora Power": Instead of just a "Database MCP," an Aurora Power includes:
+Prepackaged curated bundles that include MCP servers, steering files, and hooks. These are AWS specific, and to resuse these with other agents eg Claude, some refactoring is required to convert the AWS Kiro specific power to the other solution provider's ways.
+
+
+Eg. of Kiro Power: The "Aurora Power": Instead of just a "Database MCP," an Aurora Power includes:
 
 The MCP Server: To run SQL queries.
 
