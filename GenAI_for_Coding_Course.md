@@ -77,7 +77,7 @@ A recommended structure for the .roo/rules/ directory is:
 - 02-coding-style.md — linting rules, formatting standards, folder structure
 - 03-tech-stack.md — approved frameworks, libraries, and preferred patterns
 - 04-security.md — authentication rules, secrets handling, validation requirements
-- 
+
 These files act as persistent, shared instructions that shape how Roo interacts with the codebase and prevent unintentional deviations in behaviour.
 
 ### Continue.dev  
