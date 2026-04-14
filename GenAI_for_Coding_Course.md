@@ -181,7 +181,7 @@ Eg. of Kiro Power: The "Aurora Power": Instead of just a "Database MCP," an Auro
 
 The MCP Server: To run SQL queries.
 
-Steering Files: Best practices for Bankline (e.g., "Always use IAM Auth, never passwords").
+Steering Files: (e.g., "Always use IAM Auth, never passwords").
 
 Hooks: Automated triggers that run a security scan every time you modify a schema.
 

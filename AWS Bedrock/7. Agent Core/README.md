@@ -33,11 +33,11 @@ In a production environment, the traditional Swagger/OpenAPI approach faces thre
 
 ---
 
-## 4. The "Production" Advantage for Bankline
+## 4. The "Production" Advantage
 Transitioning to AgentCore is essential for banking-grade reliability:
 
 * **Isolated Sandboxing:** AgentCore executes generated code (like Python data analysis scripts) in a secure, isolated container. Even if the agent writes a "bad" script, it cannot access your underlying VPC or secrets.
-* **Multi-Agent Orchestration:** AgentCore supports "Supervisor" patterns. You can have one "Bankline Architect" agent that delegates sub-tasks to a "Java Specialist" agent and a "Terraform Specialist" agent.
+* **Multi-Agent Orchestration:** AgentCore supports "Supervisor" patterns. You can have one "Architect" agent that delegates sub-tasks to a "Java Specialist" agent and a "Terraform Specialist" agent.
 * **Spec-Driven Development:** Supports **EARS (Easy Approach to Requirements Syntax)**. The agent doesn't just "guess"; it validates user prompts against formal engineering specifications before taking action.
 
 ---
