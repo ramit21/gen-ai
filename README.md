@@ -3,7 +3,7 @@ Generative AI concepts
 
 ## Deterministic vs non-deterministic AI models
 
-Gen AI is a non-deterministic AI model, as ite generates input based on randomness and probabilities. 
+Gen AI is a non-deterministic AI model, as it generates input based on randomness and probabilities. 
 
 Traditional AI models  can be deterministic or non-deterministic depending on their implementation. Here's a quick rundown:
 
