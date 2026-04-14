@@ -101,11 +101,90 @@ Kiro is a spec‑driven AI IDE built by Amazon, designed to behave less like a c
 
 Kiro ends up costing more because its workflow sits on three separate pricing layers: a paid IDE subscription, AWS Bedrock request charges, and Claude model usage on top of Bedrock. Every feature run triggers multiple model calls (spec → stories → tasks → code → hooks), so token usage is naturally higher. In contrast, Roo Code with OpenAI is far cheaper because it has no IDE fee, no Bedrock middle layer, and you pay only for direct OpenAI model calls, which are already priced lower than Claude‑via‑Bedrock. For practical budgeting, Kiro is the high‑structure, high‑cost option; Roo Code with OpenAI is the flexible, low‑cost option.
 
+#### Kiro Steering files
+Steering is about "who the agent is" and your project's rules. They define the environment—architectural standards, tech stacks, and coding conventions.
+
+You can control how and when the steering files get loaded into your prompt context via front-matter in the .md file:
+- always: Loaded in every single chat interaction. Use this for your product.md or tech-stack.md.
+- fileMatch: Only loads when you are working on specific files (e.g., *.java or *.tf).
+- auto: The agent uses its own judgment to pull the file in if the conversation seems relevant.
+- manual: Only loaded if you explicitly mention the file (using #) or attach it to the session.
+
+#### Kiro Agent Skills
+On demand capabilities. Unlike Steering, which is just Markdown context, Skills often include executable scripts and assets.
+
+How they are loaded:
+
+Skills use Progressive Disclosure to save your context window.
+
+- Discovery: Kiro loads only the metadata (the description) of your registered skills at startup.
+
+- Activation: The skill is only "unpacked" and fully loaded when Kiro detects a specific intent in your prompt (e.g., "Run a database migration" triggers your db-migration skill).
+
+- Portability: Skills are meant to be shared across teams or imported from GitHub, whereas Steering is usually specific to a single workspace.
+
+Eg. of a skill:
+
+A skill lives in .kiro/skills/health-checker/ and typically contains:
+
+- skill.md: The definition and instructions.
+- check_health.py: A script that the agent can run.
+
+**skills.md**:
+
+```
+---
+name: "ServiceHealthCheck"
+description: "Diagnoses health and connectivity for Java microservices"
+tools:
+  - name: "run_diagnostics"
+    script: "scripts/check_health.py"
+    usage: "Use this when a developer reports a service is failing smoke tests."
+---
+
+# Service Health Check Skill
+
+You are a Senior SRE agent. When this skill is activated:
+1. Parse the `application.yml` to find the service port and Istio mesh settings.
+2. Run the `run_diagnostics` tool to check local port availability and K8s liveness probes.
+3. If the service is unhealthy, analyze the last 50 lines of the console log.
+4. Suggest a specific fix (e.g., "Increase memory limit in Kustomize").
+```
+
+**check_health.py**
+
+```
+import subprocess
+import json
+
+def run_diagnostics():
+    # Example: Check if the Java process is actually running
+    result = subprocess.run(["ps", "-ef"], capture_stdout=True)
+    if "java" not in result.stdout:
+        return {"status": "error", "message": "Java process not found."}
+    
+    # Check Kubernetes pod status via kubectl
+    k8s_check = subprocess.run(["kubectl", "get", "pods"], capture_stdout=True)
+    return {"status": "success", "data": k8s_check.stdout}
+
+if __name__ == "__main__":
+    print(json.dumps(run_diagnostics()))
+```
+
+### Kiro Powers
+Prepackaged curated bundles that include MCP servers, steering files, and hooks.
+E
+g. The "Aurora Power": Instead of just a "Database MCP," an Aurora Power includes:
+
+The MCP Server: To run SQL queries.
+
+Steering Files: Best practices for Bankline (e.g., "Always use IAM Auth, never passwords").
+
+Hooks: Automated triggers that run a security scan every time you modify a schema.
+
 ### Claude Code
 
 [📘 Read about Claude code here](./Claude.md)
-
-
 
 
 ------------------------------------------------------------------------
