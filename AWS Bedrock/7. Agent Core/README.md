@@ -46,9 +46,38 @@ Transitioning to AgentCore is essential for banking-grade reliability:
 > **The Takeaway:** Use Swagger Action Groups for your **MVP (Minimum Viable Product)** to prove the concept. Move to **AgentCore** when you need to enforce architectural standards, handle long-running workflows, and ensure long-term memory for a seamless developer experience.
 
 
+---
+---
 
-## Next Steps:
-* [ ] Convert current Health Care Lambda into an **MCP Tool**.
-* [ ] Define **Steering Files** for Java 21 coding standards.
-* [ ] Test **AgentCore Memory** by asking the agent to "remember" a specific report ID from a previous day's session.
+## Developing with Bedrock AgentCore (Python)
+
+In this lesson, we move from "Instruction-based" agents to "Code-based" agents using the **AgentCore SDK**. This allows us to use standard libraries like LangChain while benefiting from AWS managed infrastructure.
+
+### Core Differences in the Code:
+* **Annotations (`@Agent`):** Replaces manual prompt engineering with a structured definition that AWS uses to register the agent in the **AgentCore Gateway**.
+* **Managed Imports:** We use `aws_agentcore` to handle the "Heavy Lifting" of security and networking.
+* **The `@trace` Decorator:** Essential for production debugging. It allows you to see the "Chain of Thought" directly in the AWS Console, showing exactly what was pulled from memory vs. what the LLM generated.
+
+### Managed Memory Types in AgentCore:
+Unlike standard LLMs that have a "Goldfish Memory" (forgetting everything once the session ends), AgentCore offers three distinct types:
+
+1.  **Short-term (Session) Memory:** Standard "Chat History" that lasts only for the current conversation.
+2.  **Episodic Memory (Used in Example):** Remembers specific events or facts across different days (e.g., "The user mentioned they weighed 80kg last Tuesday"). 
+3.  **Semantic Memory:** A "Personal RAG." It stores concepts and summaries rather than exact quotes, helping the agent understand the user’s long-term goals.
+
+---
+
+### Practical:
+
+See eg. of Python agent (agent_for_agent_core.py) that uses Langchain. Steps to deploy it on agent core:
+
+1.  **Containerize:** AgentCore agents run as containers. Create a `Dockerfile` using the `public.ecr.aws/agentcore/python:3.11` base image.
+2.  **Push to ECR:** Upload your image to an **Amazon Elastic Container Registry** (ECR) repository.
+3.  **Create AgentCore Resource:**
+    * Go to the Bedrock Console -> **AgentCore**.
+    * Select **Create Agent from Image**.
+    * Point to your ECR URI.
+4.  **Configure Gateway:** Define which **MCP Servers** (like your Jira or GitHub tools) this agent is allowed to access.
+5.  **Assign IAM Roles:** Ensure the agent has the `AgentCoreRuntimeExecution` role to allow it to read/write to its own Memory store.
+6.  **Alias & Deploy:** Create an 'Alias' (e.g., `prod` or `dev`) to get a permanent ARN/URL for your agent.
 
