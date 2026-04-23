@@ -63,9 +63,45 @@ See eg. of included Python agent (agent_for_agent_core.py) that uses Langchain.
 ### Managed Memory Types in AgentCore:
 Unlike standard LLMs that have a "Goldfish Memory" (forgetting everything once the session ends), AgentCore offers three distinct types:
 
-1.  **Short-term (Session) Memory:** Standard "Chat History" that lasts only for the current conversation.
+1.  **Short-term (Session) Memory:** Standard "Chat History" that lasts only for the current conversation. (With standalone Langraph you would use 'Checkpoints' instead)
 2.  **Episodic Memory (Used in Example):** Remembers specific events or facts across different days (e.g., "The user mentioned they weighed 80kg last Tuesday"). 
 3.  **Semantic Memory:** A "Personal RAG." It stores concepts and summaries rather than exact quotes, helping the agent understand the user’s long-term goals.
+
+### Bedrock Strands
+
+Strands Agents SDK is an open-source framework (originally developed internally to power Amazon Q) used for writing agent logic.
+
+They are essentially utility-first wrappers. Instead of you writing a complex "while" loop to handle the AI's reasoning, Strands provides a Standardized Agent Loop. You define any Python function and use the @tool decorator. Strands then automatically generates the JSON schema the LLM needs to understand that function.
+
+Strands comes with a library called strands-agents-tools. These are pre-wrapped utility methods for common tasks (e.g., "Search S3," "Query Dynamo," "Generate Diagram") that you can import and drop directly into an agent.
+
+```
+# --- WRITTEN WITH STRANDS ---
+from strands import Agent, tool
+from strands_tools.aws import s3_utils # A pre-built "Strand" utility
+
+@tool
+def get_report(report_id: str):
+    """Fetches a specific health report."""
+    # Uses a Strand utility method under the hood
+    return s3_utils.fast_read(bucket="my-reports", key=f"{report_id}.json")
+
+# Create the agent logic
+my_agent = Agent(
+    role="Health Assistant",
+    tools=[get_report],
+    # --- DEPLOYED TO AGENTCORE ---
+    # When this runs on AgentCore, the "EpisodicMemory" 
+    # we discussed earlier is injected right here.
+)
+```
+Strands acts as the brain of the agent, Agentcore provides the infrastucture to run it.
+
+So you write your agent using Strands, or using langchain/langraph.
+
+Strands is for when the task is too complex to map out manually, and you want to leverage the LLM’s ability to "plan-act-reflect" on its own.
+
+LangGraph is for when you don't trust the AI to make the right decision and you want to "hand-hold" every step. You can still use Strands utility methods even when using Langraph.
 
 ---
 

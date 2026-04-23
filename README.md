@@ -5,7 +5,7 @@ Generative AI concepts
 
 Gen AI is a non-deterministic AI model, as it generates input based on randomness and probabilities. 
 
-Traditional AI models  can be deterministic or non-deterministic depending on their implementation. Here's a quick rundown:
+Traditional AI models can be deterministic or non-deterministic depending on their implementation. Here's a quick rundown:
 
 Regression: Typically deterministic. Given the same input data, a regression model will produce the same output, such as predicting house prices or stock trends.
 
@@ -146,6 +146,8 @@ Lanchain tools help abstract it, and calls the underlying model's API as per the
 4. ConversationTokenBuffer: keeps conversations upto specified token count.
 5. Backed by vector store: save user interactions as embeddings in the vector store. This adds to latency and cost.
 
+OR you can use Checkpoints, that stores the state of the chain in external DB, like Dynamodb.
+
 https://python.langchain.com/v0.1/docs/modules/memory/types/buffer/.
 
 **Langchain hub**: LangChain Hub is a platform where users can find and share commonly used prompts, chains, agents, 
@@ -179,6 +181,14 @@ async def process_statement_workflow(file_path: str, user_id: str) -> OutputStat
 2. Episodic Memory: long term, vector similarity search, includes user interaction history.
 3. Semantic Memory: long term, embeddings + metadata, includes user preference, domain knowledge, and other factual knowledge
 4. Procedural Memory: long term, optimised prompts and workflow templates, key value based.
+
+## Langraphs vs n8n
+
+n8n is a low-code Workflow Automation tool. In 2026, n8n added a dedicated AI Agent Node. You drop an "AI Agent" node and select your Model (Claude/OpenAI). You can drag drop and create agents with memory, tool integrations or agent calling other agents (eg. delegating research work to an agent with lower cost LLM model). It integrates with external tools like Slack to send notifications, or buttons for human in the loop actions.
+
+Use n8n when you main challenge is integrations and connectivities than LLM reasoning. 
+
+LangGraph on the other half is a code-first framework (built on top of LangChain). Its primary job is to manage complex reasoning loops.
 
 ## Token limitation
 
