@@ -219,14 +219,8 @@ chain = load_summarize_chain(llm, chain_type="refine")
 ## EDD - Evaluation driven development
 Most Gen AI POCs do not reach production, as gen ai is undermenisitc, and works on unstructured data. Hence POCs might start failing in prod with issues like hallucination, latency etc. Solution is EDD - where monitoring becomes part of your development from day 1. 
 
+----------------------------
 
-----------------------------
-## Ollama
-[📘 View the full Ollama Course](./ollama.md)
-----------------------------
-## GenAI for Coding
-[📘 Use of GenAI for coding Course](./GenAI_for_Coding_Course.md)
-----------------------------
 ## OpenAI
 
 OpenAI provides APIs for chat completion, text generation, moderation, and several specialised model families. For text‑based tasks, it offers models like 'GPT‑4' and 'GPT‑3.5'. For audio, OpenAI provides 'Whisper' for speech‑to‑text transcription. For image generation, it offers 'DALL·E', and for video generation, newer models ('Sora') extend that capability further. Each API endpoint is designed for a specific modality, making it easy to integrate natural language, audio, and visual intelligence into applications.
@@ -335,9 +329,30 @@ Agentic AI refers to an architectural framework or a system that exhibits high-l
 ----------------------------
 ## RAG - Vector store vs Knowledge Graphs
 
+Retrieval-Augmented Generation (RAG) is an AI architecture that supercharges Large Language Model (LLM) responses by dynamically fetching relevant, up-to-date information from an external knowledge source
+at inference time.
+
+**Vector store vs Knowledge Graphs**
+
 Both RAGs and knowledge graphs help enrich the context before invoking LLMs. The best approach is to use both if required, aka 'GraphRAG'.
 Vector Store is well-suited for storing large volumes of unstructured data as embeddings, while KGs, stored in Graph DBs like Neo4j/Amazon Neptune, help store real-world relationships.
 Eg, A graph KG of a customer to its accounts to its transactions. The prompt asks why this customer was blocked. The KG retrieval helps with the context of suspicious transactions that a customer would have performed.
 
+**RAG Types:** Vector and Vectorless
 
+1. Vector (Dense Semantic retrieval):
+1.1. Basic Naive
+1.2. Hybrid (Vector + Keyword)
 
+2. Vectorless (Sparse/structured retrieval)
+2.1. Keyword (BM25/TF-IDF)
+2.2. Graph RAG (KG Traversal)
+2.3. SQL RAG (Text to SQL)
+2.4. Reasoning (PageIndex)
+
+----------------------------
+## Ollama
+[📘 View the full Ollama Course](./ollama.md)
+----------------------------
+## GenAI for Coding
+[📘 Use of GenAI for coding Course](./GenAI_for_Coding_Course.md)
