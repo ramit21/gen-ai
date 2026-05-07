@@ -341,13 +341,19 @@ Eg, A graph KG of a customer to its accounts to its transactions. The prompt ask
 **RAG Types:** Vector and Vectorless
 
 1. Vector (Dense Semantic retrieval):
+
 1.1. Basic Naive
+
 1.2. Hybrid (Vector + Keyword)
 
 2. Vectorless (Sparse/structured retrieval)
+
 2.1. Keyword (BM25/TF-IDF)
+
 2.2. Graph RAG (KG Traversal)
+
 2.3. SQL RAG (Text to SQL)
+
 2.4. Reasoning (PageIndex)
 
 ----------------------------
