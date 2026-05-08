@@ -174,8 +174,7 @@ if __name__ == "__main__":
 ```
 
 ### Kiro Powers
-Prepackaged curated bundles that include MCP servers, steering files, and hooks. These are AWS specific, and to resuse these with other agents eg Claude, some refactoring is required to convert the AWS Kiro specific power to the other solution provider's ways.
-
+Prepackaged curated bundles that include MCP servers, steering files, and hooks. These are AWS specific, and to resuse these with other agents eg. Claude, some refactoring is required to convert the AWS Kiro specific power to the other solution provider's ways.
 
 Eg. of Kiro Power: The "Aurora Power": Instead of just a "Database MCP," an Aurora Power includes:
 
@@ -184,6 +183,12 @@ The MCP Server: To run SQL queries.
 Steering Files: (e.g., "Always use IAM Auth, never passwords").
 
 Hooks: Automated triggers that run a security scan every time you modify a schema.
+
+### Kiro vs Q
+Kiro is considered successor of Q. Q GUI acted as copilot, Q CLI can generate code, but it only supports static instructions, whereas Kiro uses steering files, MCP integrations, Kiro Powers etc.
+
+### Kiro and MCP
+Kiro loads MCP tools lazily, ie on demand basis. Else loading all tools by default can lead to context window filling, and confusion on what tool to call.
 
 ### Claude Code
 
