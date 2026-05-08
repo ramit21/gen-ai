@@ -329,32 +329,79 @@ Agentic AI refers to an architectural framework or a system that exhibits high-l
 ----------------------------
 ## RAG - Vector store vs Knowledge Graphs
 
-Retrieval-Augmented Generation (RAG) is an AI architecture that supercharges Large Language Model (LLM) responses by dynamically fetching relevant, up-to-date information from an external knowledge source
-at inference time.
+Retrieval-Augmented Generation (RAG) is an AI architecture that supercharges Large Language Model (LLM) responses by dynamically fetching relevant, up-to-date information from an external knowledge source at inference time.
 
 **Vector store vs Knowledge Graphs**
 
 Both RAGs and knowledge graphs help enrich the context before invoking LLMs. The best approach is to use both if required, aka 'GraphRAG'.
 Vector Store is well-suited for storing large volumes of unstructured data as embeddings, while KGs, stored in Graph DBs like Neo4j/Amazon Neptune, help store real-world relationships.
+
 Eg, A graph KG of a customer to its accounts to its transactions. The prompt asks why this customer was blocked. The KG retrieval helps with the context of suspicious transactions that a customer would have performed.
 
-**RAG Types:** Vector and Vectorless
+**RAG Types: Vector and Vectorless**
 
 1. Vector (Dense Semantic retrieval):
 
-1.1. Basic Naive
+1.1. Basic (Vector) RAG: Naive RAG is the foundational and most widely deployed RAG pattern. Documents are chunked, embedded via a model
+such as text-embedding-ada or sentence-transformers, and stored in a vector database (ChromaDB, FAISS, Pinecone). At
+query time the question is embedded and top-K nearest chunks are retrieved by cosine similarity, then injected into the LLM
+prompt. Best for general Q&A chatbots, document search, and rapid prototypes where lexical precision is not critical.
 
-1.2. Hybrid (Vector + Keyword)
+1.2. Hybrid (Vector + Keyword): 2 searches are perfromed on the data - one usual vector search, and another sparse keyword search (using TF-IDF or BM25), and then merging the results using Reciprocal Rank Fusion (RRF). This dual-retrieval approach captures both semantic meaning and exact keyword matches,
+boosting recall on technical queries, product codes, or named entities that pure vector search misses. Eg. Elasticsearch, Weaviate, and Pinecone.
 
 2. Vectorless (Sparse/structured retrieval)
 
-2.1. Keyword (BM25/TF-IDF)
+2.1. Keyword (BM25/TF-IDF): BM25 or TF-IDF — without any neural embeddings. This makes it extremely
+fast, zero compute cost at inference, and highly precise for exact-term matching. It excels in domains with unique identifiers
+such as medical codes, legal citations, part numbers, or financial tickers where semantic similarity is less relevant. Common
+tools are Elasticsearch and OpenSearch.
 
-2.2. Graph RAG (KG Traversal)
+2.2. Graph RAG (KG Traversal): Graph RAG stores knowledge as a property graph (nodes = entities, edges = relationships) and retrieves information via
+graph traversal rather than similarity search. Eg. Neo4j, GraphRag.
 
-2.3. SQL RAG (Text to SQL)
+2.3. SQL RAG (Text to SQL): The LLM translates a natural-language question into SQL, executes it
+against a relational database, and uses the result as context for its final answer.
 
-2.4. Reasoning (PageIndex)
+2.4. Reasoning (PageIndex): Reasoning RAG eschews chunking altogether. Documents are indexed as hierarchical tree structures and the LLM
+traverses the tree step-by-step to locate relevant pages, reasoning about which branches to explore. This approach handles
+very long documents — contracts, annual reports, legal briefs — far better than chunk-based methods because it preserves
+document structure and avoids context fragmentation. Pioneered by VectifyAI's PageIndex; high complexity but
+state-of-the-art quality on long-form document tasks.
+
+**RAG Questions**
+
+Q. What evaluation metrics are used to assess RAG system quality?
+
+A. Key metrics include: Context Precision (are retrieved chunks relevant?), Context Recall (are all necessary facts
+retrieved?), Faithfulness (does the answer only use retrieved context, no hallucination?), and Answer Relevance (does
+the answer address the query?). Frameworks like **RAGAS** automate these using **LLM-as-judge** evaluation.
+Retrieval-level metrics (MRR, NDCG, Hit@K) measure retriever quality independently of the generator.
+
+Q. What is the role of re-ranking in RAG pipelines?
+
+A. Initial retrieval returns top-K candidates quickly but imprecisely. A re-ranker (cross-encoder model or LLM-as-judge) then
+re-scores each candidate against the query with deeper computation, promoting the most relevant chunks before
+passing them to the LLM. Re-ranking dramatically improves faithfulness and reduces noise in the context window.
+Popular re-rankers include Cohere Rerank, BGE-Reranker, and FlashRank.
+
+Q.What is semantic chunking and how does it differ from fixed-size chunking?
+
+A. Semantic chunking splits documents at natural semantic boundaries — where topic or meaning shifts — rather than at
+fixed token counts. It uses embedding similarity between consecutive sentences to detect boundaries: if adjacent
+sentences diverge significantly in embedding space, a chunk boundary is inserted. This produces coherent,
+self-contained chunks that improve retrieval precision compared to fixed-size chunks that can split sentences or mix
+unrelated topics.
+
+Q. What are the main failure modes of RAG systems and how do you mitigate them?
+
+A. Key failure modes: (1) Retrieval failure — wrong chunks retrieved; mitigate with Hybrid RAG + re-ranking + query
+rewriting. (2) Context window overflow — too many chunks exceed LLM limits; mitigate with tighter top-K and re-ranking.
+(3) Hallucination despite retrieval — LLM ignores context; mitigate with faithfulness-focused prompting and citation
+checks. (4) Stale index — outdated documents; mitigate with incremental indexing pipelines. (5) Prompt injection via
+retrieved content; mitigate with input sanitisation and guard.
+
+
 
 ----------------------------
 ## Ollama
