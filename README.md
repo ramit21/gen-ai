@@ -348,7 +348,7 @@ query time the question is embedded and top-K nearest chunks are retrieved by co
 prompt. Best for general Q&A chatbots, document search, and rapid prototypes where lexical precision is not critical.
 
 1.2. Hybrid (Vector + Keyword): 2 searches are perfromed on the data - one usual vector search, and another sparse keyword search (using TF-IDF or BM25), and then merging the results using Reciprocal Rank Fusion (RRF). This dual-retrieval approach captures both semantic meaning and exact keyword matches,
-boosting recall on technical queries, product codes, or named entities that pure vector search misses. Eg. Elasticsearch, Weaviate, and Pinecone.
+boosting recall on technical queries, product codes, or named entities that pure vector search misses. Eg. Aurora PostgreSQL with the pgvector extension, Elasticsearch, Weaviate, and Pinecone.
 
 2. Vectorless (Sparse/structured retrieval)
 
@@ -401,6 +401,11 @@ rewriting. (2) Context window overflow — too many chunks exceed LLM limits; mi
 checks. (4) Stale index — outdated documents; mitigate with incremental indexing pipelines. (5) Prompt injection via
 retrieved content; mitigate with input sanitisation and guard.
 
+Q. Faiss vs Chromadb vs Pinecone
+
+A. Faiss/Chromadb is good for local development, data saved in files on disk. Good for POCs, but doesn't scale. Pinecone is SAAS offering.
+
+Faiss is good for fast retrieval speed, Chromadb is a more complete db with more features, eg. metadata based queries: "find similar documents, but only from PDF files uploaded in May," Chroma does this natively. 
 
 
 ----------------------------
