@@ -327,10 +327,21 @@ Execute (Action Execution): The harness takes over. The LLM cannot actually run 
 
 Repeat (Evaluation & Next Step): The harness asks the LLM to look at the new data, judge if the goal is met, and decide whether to loop again or present the final answer.
 
-
 2. **Memory**: The capacity to store and recall information. This includes short-term memory (in-context learning and chat history) and long-term memory (external vector databases for retrieving information over time).
 3. **Tools**: External capabilities the LLM can call upon to execute actions, such as APIs, web search engines, code execution environments, or databases.
 
+**Guide and Sensors**:
+
+These are used to assist in REACT loop. Guide are the contraints for the LLM Agent. Eg. of Guide: Steering file for the coding agent.
+
+Sensors are the eyes and ears of LLM Agent, that provide feedback and help agent improve its output. Eg. Code reviewer/Linter.
+
+How Sensors work: 
+The agent executes an Output (Action).
+This action changes the Environment (e.g., updates a database, runs a script, or searches the web).
+The Sensors detect that change in the environment and pull in the new data (Observation).
+
+This feedback drives the agent to adjust its next thought and move closer to the correct response.
 
 ----------------------------
 ## RAG
