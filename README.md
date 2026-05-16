@@ -305,21 +305,7 @@ OpenAI Evals, Ragas (for evaluating RAGs), LangSmith (monitor LLM application), 
 
 You can access LLM models either via the internet by paid subscriptions, or by deploying open-source models like lama3 locally. Web environments like Google Colab and Lightning Studio allow you to access GPUs with pay-as-you-go model. You can access open-source models via HuggingFace, Groq, or Ollama.
 ----------------------------
-## RAG techniques
 
- RAG techniques that help improve the performance of LLM applications:
-
-1. **Context Enrichment Window**: While chunking the data before uploading to RAG, maintain some overlap. This helps maintain some context between different chunks, and that helps the retrieval process.
-2. **Fusion Retrieval**: This system integrates two powerful document retrieval techniques: vector-based similarity search and keyword-based BM25 retrieval. By leveraging the strengths of both approaches, the Fusion Retrieval system aims to enhance the quality and relevance of the retrieved documents. BM25 works similarly to TF-IDF in search engines; it looks at the frequency of the input query in the chunks and ranks the documents accordingly. The Vector search and BM25 search are performed in parallel, and the results are then fused and reranked using the 'Reciprocal rank fusion' algorithm, which finally returns the top k documents. Read more here - https://varunbhanot.substack.com/p/day-16-going-beyond-basic-rag-part
-3. **Query Transformation**: The input prompt is rewritten to make it more impactful before fetching the RAG. 3 types:
-   3.1. Query rewriting: Reformulates queries to be more specific and detailed, improving the likelihood of retrieving relevant information.
-   3.2. Step-back Prompting: Generates a higher-level query for RAG retrieval. e.g., if the prompt is asking about 'machine learning', the step back would change it to 'artificial intelligence' to make it more generic.
-   3.3. Sub-query Decomposition: breaks down complex queries into simpler sub-queries, enabling the retrieval of information covering different aspects of a complex query.
-4. **Reranking**: After similarity search retrieval from RAG, use LLM or a Cross Encoder to re-rank the results.
-5. **Feedback Loop**: User feedback is taken on the generated output. The vector store is frequently updated as per user feedback.
-6. **Adaptive RAG system**: adapt the retrieval strategy based on the type of query. By leveraging Language Models (LLMs) at various stages, we can provide more accurate and relevant information to users. Apply different retreival based on prompt intention: factual, analytical, opinion, contextual (user input). 
-
-----------------------------
 ## AI Agents vs Agentic AI
 An AI Agent is a specific software that invokes an LLM, along with external tools/API/databases to achieve a particular task. eg. Roo code (open source version of Cline). 
 An AI agent can be zero-shot, few-shot (when the agent asks questions to gather more info before performing a task), or React docstore agent (uses a knowledge base to fetch specific information).
@@ -327,7 +313,7 @@ An AI agent can be zero-shot, few-shot (when the agent asks questions to gather 
 Agentic AI refers to an architectural framework or a system that exhibits high-level "agency." It coordinates multiple agents and tools to achieve a broad, complex goal. It is proactive. eg. Agentic AI.
 
 ----------------------------
-## RAG - Vector store vs Knowledge Graphs
+## RAG
 
 Retrieval-Augmented Generation (RAG) is an AI architecture that supercharges Large Language Model (LLM) responses by dynamically fetching relevant, up-to-date information from an external knowledge source at inference time.
 
@@ -338,7 +324,9 @@ Vector Store is well-suited for storing large volumes of unstructured data as em
 
 Eg, A graph KG of a customer to its accounts to its transactions. The prompt asks why this customer was blocked. The KG retrieval helps with the context of suspicious transactions that a customer would have performed.
 
-**RAG Types: Vector and Vectorless**
+More details in next section:
+
+### RAG Types: Vector and Vectorless**
 
 1. Vector (Dense Semantic retrieval):
 
@@ -358,7 +346,7 @@ such as medical codes, legal citations, part numbers, or financial tickers where
 tools are Elasticsearch and OpenSearch.
 
 2.2. Graph RAG (KG Traversal): Graph RAG stores knowledge as a property graph (nodes = entities, edges = relationships) and retrieves information via
-graph traversal rather than similarity search. Eg. Neo4j, GraphRag.
+graph traversal rather than similarity search. ie Search is performed based on bath and not cosine similarity. Eg. Neo4j, GraphRag.
 
 2.3. SQL RAG (Text to SQL): The LLM translates a natural-language question into SQL, executes it
 against a relational database, and uses the result as context for its final answer.
@@ -366,10 +354,11 @@ against a relational database, and uses the result as context for its final answ
 2.4. Reasoning (PageIndex): Reasoning RAG eschews chunking altogether. Documents are indexed as hierarchical tree structures and the LLM
 traverses the tree step-by-step to locate relevant pages, reasoning about which branches to explore. This approach handles
 very long documents — contracts, annual reports, legal briefs — far better than chunk-based methods because it preserves
-document structure and avoids context fragmentation. Pioneered by VectifyAI's PageIndex; high complexity but
+document structure and avoids context fragmentation. Pioneered by **VectifyAI's PageIndex**; high complexity but
 state-of-the-art quality on long-form document tasks.
+Document is broken into branches based on TOC (Table of content), If no TOC present, then LLM is used to understand the document and then chunk.
 
-**RAG Questions**
+### RAG Questions
 
 Q. What evaluation metrics are used to assess RAG system quality?
 
@@ -407,6 +396,29 @@ A. Faiss/Chromadb is good for local development, data saved in files on disk. Go
 
 Faiss is good for fast retrieval speed, Chromadb is a more complete db with more features, eg. metadata based queries: "find similar documents, but only from PDF files uploaded in May," Chroma does this natively. 
 
+### RAG techniques
+
+ RAG techniques that help improve the performance of LLM applications:
+
+1. **Context Enrichment Window**: While chunking the data before uploading to RAG, maintain some overlap. This helps maintain some context between different chunks, and that helps the retrieval process.
+2. **Fusion Retrieval**: This system integrates two powerful document retrieval techniques: vector-based similarity search and keyword-based BM25 retrieval. By leveraging the strengths of both approaches, the Fusion Retrieval system aims to enhance the quality and relevance of the retrieved documents. BM25 works similarly to TF-IDF in search engines; it looks at the frequency of the input query in the chunks and ranks the documents accordingly. The Vector search and BM25 search are performed in parallel, and the results are then fused and reranked using the 'Reciprocal rank fusion' algorithm, which finally returns the top k documents. Read more here - https://varunbhanot.substack.com/p/day-16-going-beyond-basic-rag-part
+3. **Query Transformation**: The input prompt is rewritten to make it more impactful before fetching the RAG. 3 types:
+   3.1. Query rewriting: Reformulates queries to be more specific and detailed, improving the likelihood of retrieving relevant information.
+   3.2. Step-back Prompting: Generates a higher-level query for RAG retrieval. e.g., if the prompt is asking about 'machine learning', the step back would change it to 'artificial intelligence' to make it more generic.
+   3.3. Sub-query Decomposition: breaks down complex queries into simpler sub-queries, enabling the retrieval of information covering different aspects of a complex query.
+4. **Reranking**: After similarity search retrieval from RAG, use LLM or a Cross Encoder to re-rank the results.
+5. **Feedback Loop**: User feedback is taken on the generated output. The vector store is frequently updated as per user feedback.
+6. **Adaptive RAG system**: adapt the retrieval strategy based on the type of query. By leveraging Language Models (LLMs) at various stages, we can provide more accurate and relevant information to users. Apply different retreival based on prompt intention: factual, analytical, opinion, contextual (user input). 
+7. **Cost reduction**: Regularly delete stale data to save on retieval costs. Cache frequent queries and RAG responses in Redis.
+
+### ReBAC - Relationship based access control
+
+RAG systems retrieve documents based on similarity, not permission. This creates a risk that data of one customer may become visible to the other. 
+Traditional RBAC also can't be used here as it is not granular enough at document level.
+
+Solution: use ReBAC.
+
+To implement ReBAC, use Auth0 FGA. Here you define users, groups, and resources (PDF files being put into RAG), and relations on who can access what. LAter when RAG store is queried, Auth0 FGA filters out results that a particular user is not allowed to access.
 
 ----------------------------
 ## Ollama
