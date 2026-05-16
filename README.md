@@ -312,6 +312,26 @@ An AI agent can be zero-shot, few-shot (when the agent asks questions to gather 
 
 Agentic AI refers to an architectural framework or a system that exhibits high-level "agency." It coordinates multiple agents and tools to achieve a broad, complex goal. It is proactive. eg. Agentic AI.
 
+In simple words, Agent = LLM + Harness, where LLM is the brain, HArness is the doer. A harness provides:
+
+1. **Planning**: The ability to break down large tasks into smaller, manageable sub-goals (e.g., Reflection, Chain-of-Thought, or Tree-of-Thoughts). 
+**ReAct** (Reasoning + Acting) paradigm is used to drive **"Agentic loops"**: Reason -> Select -> Execute -> Repeat
+
+Breaking Down the Loop in the Harness:
+
+Reason (Planning/Thinking): The harness prompts the LLM to analyze the current state and the user's ultimate goal. The LLM "thinks" about what it needs to do next (e.g., "I need to find the population of Paris in 2026. I should use a search tool.").
+
+Select (Action Selection): Based on its reasoning, the LLM selects a specific tool from the toolkit provided by the harness, along with the arguments needed to run it (e.g., web_search(query="Paris population 2026")).
+
+Execute (Action Execution): The harness takes over. The LLM cannot actually run code or browse the internet itself; the harness executes the selected tool, grabs the real-world result, and feeds that data back into the LLM's context window.
+
+Repeat (Evaluation & Next Step): The harness asks the LLM to look at the new data, judge if the goal is met, and decide whether to loop again or present the final answer.
+
+
+2. **Memory**: The capacity to store and recall information. This includes short-term memory (in-context learning and chat history) and long-term memory (external vector databases for retrieving information over time).
+3. **Tools**: External capabilities the LLM can call upon to execute actions, such as APIs, web search engines, code execution environments, or databases.
+
+
 ----------------------------
 ## RAG
 
