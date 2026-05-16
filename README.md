@@ -418,7 +418,7 @@ Traditional RBAC also can't be used here as it is not granular enough at documen
 
 Solution: use ReBAC.
 
-To implement ReBAC, use Auth0 FGA. Here you define users, groups, and resources (PDF files being put into RAG), and relations on who can access what. LAter when RAG store is queried, Auth0 FGA filters out results that a particular user is not allowed to access.
+To implement ReBAC, use Auth0 FGA. Here you define users, groups, and resources (PDF files being put into RAG), and relations on who can access what. Later when RAG store is queried, Auth0 FGA intercepts the request and forces RAG to be searched only for documents the user is allowed to access.
 
 ----------------------------
 ## Ollama
