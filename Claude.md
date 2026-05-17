@@ -121,6 +121,7 @@ By offloading heavy lifting to a subagent, you achieve two things simultaneously
 ### Hooks
 
 Claude Hooks are small automation triggers that run automatically at specific moments in Claude Code’s workflow — for example, before a tool runs, after a tool runs, or when a session starts. They let you enforce rules, run scripts, or inject context without relying on the AI to remember. eg. Slack/Teams notification hooks, auto-linting hooks etc.
+
 ----------------
 
 ### Claude skills - changes in 2026
