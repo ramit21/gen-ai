@@ -121,3 +121,54 @@ By offloading heavy lifting to a subagent, you achieve two things simultaneously
 ### Hooks
 
 Claude Hooks are small automation triggers that run automatically at specific moments in Claude Code’s workflow — for example, before a tool runs, after a tool runs, or when a session starts. They let you enforce rules, run scripts, or inject context without relying on the AI to remember. eg. Slack/Teams notification hooks, auto-linting hooks etc.
+----------------
+
+### Claude skills - changes in 2026
+
+This section summarizes the modern Claude Skills architecture and best practices for designing production‑ready skills. The 2026 spec introduces strict frontmatter rules, procedural bodies, and an effectively unlimited reference layer through progressive disclosure.
+
+
+#### 🧩 Level 1 — Frontmatter (Always Loaded)
+
+Claude loads only the `name` and `description` of each installed skill at session start (~100 tokens per skill). These fields act as the routing contract.
+
+- [Frontmatter as router](ca://s?q=Frontmatter_as_routing_contract) — The description is used for intent‑matching. The skill body loads only when the user’s request matches this description.
+- [Name rules](ca://s?q=Skill_name_rules) — Max 64 characters, lowercase letters and hyphens only; cannot contain “anthropic” or “claude”.
+- [Description rules](ca://s?q=Skill_description_rules) — Max 1024 characters, no XML tags; every word contributes to routing.
+- [Allowed-tools](ca://s?q=Allowed_tools_explained) — Tools listed here auto‑approve without confirmation; unlisted tools still work but require approval.
+- [Agent mode](ca://s?q=Skill_agent_mode) — Runs the skill inside a subagent. Intermediate steps never enter the main context; only the final output is returned.
+- [Disable-model-invocation](ca://s?q=Disable_model_invocation) — Skill triggers only via `/skill-name`.
+
+
+#### ⚙️ Level 2 — Body (Loaded Only When Invoked)
+
+The body contains procedural knowledge and should remain lean.
+
+- [Body purpose](ca://s?q=Skill_body_purpose) — Workflows, steps, checklists, and operational guidance.
+- [Token guidance](ca://s?q=Skill_body_token_limit) — Keep under 5,000 tokens; split into reference files if larger.
+- [Reference usage](ca://s?q=Skill_reference_files) — The body should call Level 3 files rather than embed large factual content.
+
+
+#### 📚 Level 3 — Bundled Files (Loaded on Demand)
+
+Level 3 files do not load until referenced, giving skills an effectively unlimited knowledge layer.
+
+- [Instruction files](ca://s?q=Skill_instruction_files) — Markdown files such as `REFERENCE.md`, `FORMS.md`, `TAXONOMY.md`.
+- [Executable scripts](ca://s?q=Skill_executable_scripts) — Scripts run as needed; their code never enters context, only their output.
+- [Resource files](ca://s?q=Skill_resource_files) — Schemas, API docs, templates, and examples; unlimited size and zero token cost until accessed.
+
+
+#### 🔄 Changes Since October 2025
+
+- [Commands merged with skills](ca://s?q=Commands_merged_with_skills) — `.claude/commands/*.md` now behave identically to skills and create the same slash commands.
+- [Three invocation modes](ca://s?q=Skill_invocation_modes) — Auto‑invoked, user‑invoked, or mixed (auto requires explicit keywords).
+- [Live hot‑reload](ca://s?q=Skill_hot_reload) — Claude detects SKILL.md changes without restarting the session.
+
+
+#### 🧱 Design Principles
+
+- [Frontmatter = routing contract](ca://s?q=Frontmatter_as_routing_contract) — Write descriptions as trigger conditions, not summaries.
+- [Body = procedure](ca://s?q=Body_as_procedure) — Keep it concise; move factual or reference material to Level 3.
+- [Level 3 = unlimited reference layer](ca://s?q=Level3_reference_layer) — Store all heavy documentation, examples, and scripts here.
+- [Progressive disclosure](ca://s?q=Progressive_disclosure_in_skills) — Load only what is needed, when it is needed.
+
