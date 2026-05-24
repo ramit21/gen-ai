@@ -44,7 +44,7 @@ Classification: Usually deterministic. Algorithms like decision trees and logist
 Popular LLMOps tools: Google cloud vertex AI, Databricks, Valohi, Ollama, BentoML, Kubeflow etc.
  
 
-**Pros that Gen AI will bring to soceity**
+**Pros that Gen AI will bring to society**
 1. Increase productivity and efficiency.
 2. Help with personalization.
 3. Accessibility: Help people with disabilities. eg. provide real time translations, alternative formats etc.
@@ -177,7 +177,7 @@ async def process_statement_workflow(file_path: str, user_id: str) -> OutputStat
 ```
 
 **Memory types**:
-1. Working Memory: short term, eg conversationBufferMemory
+1. Working Memory: short term, eg conversationBufferMemory. ie summary of conversation so far is fed back into LLM model calls, so that LLM can answer taking care of the ongoing conversation.
 2. Episodic Memory: long term, vector similarity search, includes user interaction history.
 3. Semantic Memory: long term, embeddings + metadata, includes user preference, domain knowledge, and other factual knowledge
 4. Procedural Memory: long term, optimised prompts and workflow templates, key value based.
@@ -451,6 +451,88 @@ Solution: use ReBAC.
 
 To implement ReBAC, use Auth0 FGA. Here you define users, groups, and resources (PDF files being put into RAG), and relations on who can access what. Later when RAG store is queried, Auth0 FGA intercepts the request and forces RAG to be searched only for documents the user is allowed to access.
 
+## LLM Gateway
+An LLM gateway is a middleware layer that sits between your application and multiple LLM providers.
+
+**Core Features of LLM Gateways**:
+1. Unified API — Call any model (OpenAI, Groq, Anthropic, HF) using the same request format and methods.
+2. Model routing — Automatically choose the best model based on cost, latency, or quality.
+3. Fallback handling — If one provider fails, the gateway retries with another.
+4. Rate‑limit smoothing — Queue or distribute requests to avoid hitting provider limits.
+5. Centralised logging — One place to view all prompts, responses, and latency metrics.
+6. Cost tracking — Track spend per model, per user, per endpoint.
+7. Key management — Store API keys in one secure place instead of scattering them across services.
+8. Caching — Cache identical prompts to reduce cost and latency.
+9. Fine‑grained access control — Control which teams or services can use which models.
+
+**LiteLLM** is a lightweight gateway that exposes a single OpenAI‑compatible API but routes to any backend model (Groq, Anthropic, Gemini, Llama, etc.).
+
+Sample code that shows how LiteLLM routes request to another model should primary fail:
+```
+import litellm
+from litellm import Router
+from langchain_openai import ChatOpenAI
+import threading
+
+# -----------------------------
+# 1. Configure LiteLLM Router in code
+# -----------------------------
+router = Router(
+    model_list=[
+        {
+            "model_name": "smart-llm",
+            "litellm_params": {
+                "model": "groq/mixtral-8x7b",
+                "api_key": "GROQ_KEY"
+            },
+            "fallback_models": [
+                "openai/gpt-4o",
+                "anthropic/claude-3-haiku"
+            ]
+        },
+        {
+            "model_name": "openai/gpt-4o",
+            "litellm_params": {
+                "model": "openai/gpt-4o",
+                "api_key": "OPENAI_KEY"
+            }
+        },
+        {
+            "model_name": "anthropic/claude-3-haiku",
+            "litellm_params": {
+                "model": "anthropic/claude-3-haiku",
+                "api_key": "ANTHROPIC_KEY"
+            }
+        }
+    ]
+)
+
+# -----------------------------
+# 2. Start LiteLLM server in background thread
+# -----------------------------
+def start_server():
+    litellm.run(port=4000, router=router)
+
+thread = threading.Thread(target=start_server, daemon=True)
+thread.start()
+
+# -----------------------------
+# 3. LangChain client pointing to LiteLLM
+# -----------------------------
+llm = ChatOpenAI(
+    model="smart-llm",                 # triggers fallback chain
+    openai_api_key="dummy",            # ignored by LiteLLM
+    openai_api_base="http://localhost:4000"
+)
+
+# -----------------------------
+# 4. Make a request
+# -----------------------------
+response = llm.invoke("Explain how LLM fallback works in one paragraph.")
+print(response)
+
+```
+A good youtube video by Krish Naik: https://www.youtube.com/watch?v=RN3baOpNA6w
 ----------------------------
 ## Ollama
 [📘 View the full Ollama Course](./ollama.md)
