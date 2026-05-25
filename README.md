@@ -451,6 +451,33 @@ Solution: use ReBAC.
 
 To implement ReBAC, use Auth0 FGA. Here you define users, groups, and resources (PDF files being put into RAG), and relations on who can access what. Later when RAG store is queried, Auth0 FGA intercepts the request and forces RAG to be searched only for documents the user is allowed to access.
 
+## Cost Optimisation with GenAI
+
+1. **Right‑size models** — Use cheaper/smaller models for simple tasks; reserve expensive models for reasoning‑heavy steps.
+
+2. **Control context growth** — Long conversations increase token cost. Periodically summarise and trim history.
+
+3. **MCP server pruning** — Disable MCP servers you don’t need. Loading tool definitions consumes tokens at session start.
+
+4. **Rule file optimisation** — Keep rule files short. Store pointers/links to long docs instead of embedding full content. Name + description act as metadata.
+
+5. **Track usage** — Monitor context length (`/context`), token usage, and spend (`/cost`) to avoid silent cost creep.
+
+6. **Use Memory for state** — Persist long‑term preferences or facts in Memory instead of re‑sending them every session.
+
+7. **Vector DB cost control**  
+   - Aurora PGVector = balanced cost/performance  
+   - S3‑based vector stores = cheapest but higher latency
+
+8. **RAG storage hygiene** — Remove outdated or unused documents to reduce storage and embedding costs.
+
+9. **Semantic caching** — Add a semantic cache (e.g., Redis + embedding similarity). It checks *intent*, not exact text, before hitting the model.
+
+10. **Model distillation** — Train a smaller model to mimic a larger one for your specific tasks. Cheaper + faster. Supported on Bedrock.
+
+11. **Cloud optimisation** — Use reserved/spot instances and autoscaling inference endpoints.
+
+
 ## LLM Gateway
 An LLM gateway is a middleware layer that sits between your application and multiple LLM providers.
 
