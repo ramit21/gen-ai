@@ -566,3 +566,10 @@ A good youtube video by Krish Naik: https://www.youtube.com/watch?v=RN3baOpNA6w
 ----------------------------
 ## GenAI for Coding
 [📘 Use of GenAI for coding Course](./GenAI_for_Coding_Course.md)
+----------------------------
+## Langraph POC
+https://github.com/ramit21/langraph-coder-buddy
+
+Youtube video: https://www.youtube.com/watch?v=SP-b_G74Nuk
+
+
