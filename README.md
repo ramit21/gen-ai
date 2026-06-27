@@ -128,7 +128,7 @@ You can use Langchain text split playground to play with your data and arrive at
 
 **Firecrawl**: It is a SAAS tool that is used to scrape website urls, and create RAG vector strore embeddings. It integrates very easily with Langchain. 
 
-**Agents**: Langchain can intgrate with various agents that generate some python code and run at the backend , eg QR code generator, CSV file processor etc. But since these Agents run code at backend based on user prompts, these come with their own set of risks. A promp injection attack can make a malicious code to run on server and have some ill effects like data leakage etc. Hence the input text must be properly sanitised before invoking agents. 
+**Agents**: Langchain can integrate with various agents that generate some python code and run at the backend , eg QR code generator, CSV file processor etc. But since these Agents run code at backend based on user prompts, these come with their own set of risks. A promp injection attack can make a malicious code to run on server and have some ill effects like data leakage etc. Hence the input text must be properly sanitised before invoking agents. 
 Also, the use of Agents can be flaky - different answers to same query.
 
 Agent router is used to send different user inputs to different agents based on description fields..
@@ -164,9 +164,9 @@ Think about different nodes in graph invoking different LLMs suited for that par
 
 | LangChain | LangGraph | 
 | -------- | -------- |
-| Sequential chain    | Graph based workflows     |
-| Limited state management   | Advanced persistent state     |
-| Simple chain  | Advanced persistent state     |
+| Sequential chain - each step passes output to the next    | Graph based workflows -— nodes, edges, branching, loops, conditional routing    |
+| Ephemeral state - state exists only during a single run; no built‑in persistence   | Persistent state — built‑in checkpointing, resumability, durable state across steps    |
+| Simple chain— good for basic pipelines, RAG, prompt chains  | Agent‑style orchestration — supports multi‑step agents, tool use, retries, planning     |
 
 **Observability** is even more important for multi-agent systems, not just for production reliability, but also because multi agent systems can quickly consume the allowed model tokens. Popular tools: Langfuse, Opik. For eg. when using Opik, the code looks like below, you put @track annotation to track a LLM node function.:
 ```
@@ -343,7 +343,64 @@ The Sensors detect that change in the environment and pull in the new data (Obse
 
 This feedback drives the agent to adjust its next thought and move closer to the correct response.
 
+### Sub Agents vs Agent teams
+An agent can spin up multiple sub-agents for parallel processing, and block till all sub agents complete their processing. Each agent/subagent get their own context, tools, memory, and instructions to perfrom a job.
+
+With agent teams, all the sub agents share a task list, and also communicate with each other, using **Medallion architecture** for sharing data.
+
 ----------------------------
+## Deep Agents
+
+Simple agents take a prompt, call an LLM, optionally use a few tools, and return a response.
+
+**Deep Agents**, like coding agents (e.g., Kiro‑style architectures), are more advanced.  
+They rely on four core components:
+
+1. **[Planning](ca://s?q=Explain_agent_planning)** — breaking a large task into structured steps.
+2. **[Sub‑agents](ca://s?q=Explain_sub_agents)** — specialised agents for tasks like planning, architecture, coding, testing, etc.
+3. **[Virtual Filesystems](ca://s?q=Explain_agent_virtual_filesystem)** — memory, skills, summaries, and file‑like objects that persist across steps.
+4. **[System prompts](ca://s?q=Explain_system_prompts)** — stable instructions that define behaviour, constraints, and persona.
+
+Deep agents behave more like **multi‑step autonomous workers** than single‑shot LLM calls.
+
+
+### Virtual Filesystem & Backends
+
+Deep agents often use a **virtual filesystem (VFS)**.  
+This is how coding agents can *read, write, modify, and track files* during multi‑step workflows.
+
+The **backend** determines *where* this file data actually lives:
+
+1. **StateBackend** (default)
+- Lives **in RAM**, tied to a **single thread**.
+- Fastest, but **not persistent**.
+- Good for short‑lived agents or single‑session tasks.
+
+2. **FilesystemBackend**
+- Files are stored on the **real local filesystem**.
+- Persistent across runs.
+- Useful for coding agents that must generate actual files on disk.
+
+3. **StoreBackend**
+- Files live in a **LangGraph Store**, scoped by a namespace.
+- Multiple threads or agents can access the same files.
+- Enables:
+  - shared memory
+  - collaborative agents
+  - long‑running workflows
+  - resumable tasks
+
+
+### Why This Matters
+
+- Deep agents are **multi‑step**, **stateful**, and **tool‑driven**, unlike simple prompt‑response agents.
+- They use **planning + sub‑agents** to break down complex tasks (e.g., code generation pipelines).
+- A **virtual filesystem** allows agents to treat memory and files as first‑class objects.
+- **Backends** determine persistence, concurrency, and scalability.
+- StoreBackend is key for **multi‑agent systems**, **parallel execution**, and **resumability**.
+- This architecture is foundational for **autonomous coding agents**, **workflow engines**, and **agentic AI systems**.
+
+--
 ## RAG
 
 Retrieval-Augmented Generation (RAG) is an AI architecture that supercharges Large Language Model (LLM) responses by dynamically fetching relevant, up-to-date information from an external knowledge source at inference time.
