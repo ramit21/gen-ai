@@ -618,6 +618,9 @@ print(response)
 ```
 A good youtube video by Krish Naik: https://www.youtube.com/watch?v=RN3baOpNA6w
 ----------------------------
+## LLMOps
+[📘 LLM OPS](./llmOps.md)
+----------------------------
 ## Ollama
 [📘 View the full Ollama Course](./ollama.md)
 ----------------------------
