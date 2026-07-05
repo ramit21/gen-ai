@@ -350,7 +350,11 @@ These methods leverage the power of dense vector representations of words, sente
 3. BLEURT (Bilingual Evaluation Understudy with Representations from Transformers: Fine-tunes a pre-trained language model on human ratings. Produces a learned metric that correlates well with human judgments.
 
 ### Evaluation tools
-OpenAI Evals, Ragas (for evaluating RAGs), LangSmith (monitor LLM application), Hugging Face Evaluate, EleutherAI LM Evaluation Harness
+OpenAI Evals, Ragas (for evaluating RAGs), LangSmith (monitor LLM application), Hugging Face Evaluate, EleutherAI LM Evaluation Harness.
+
+Langfuse is open source alternative to Langsmith. @observe annotation is put on method to track.
+
+Logfire: By Pydantic library makers, based on OTEL. While Langfuse traces LLM calls, chains and agents, Logfire is end to end app monitoring tool (even includes SQL queries fired under the hood in a given span). Langfuse best integration is with Langgraph, while Logfire is for heavy use of ython applciations, specifically Pydantic AI.
 ---
 
 ## RAGAS — Evaluating RAG Systems
@@ -360,17 +364,17 @@ OpenAI Evals, Ragas (for evaluating RAGs), LangSmith (monitor LLM application), 
 RAGAS is a framework for evaluating Retrieval‑Augmented Generation (RAG) systems.  
 It focuses on how well a system retrieves context and how faithfully the LLM uses that context when generating answers.
 
+4 main compnents for running an evaluation: Input prompt, Ground truth (expected answer), retrieved context (from RAG), final generated answer.
 
 ### Key Metrics
 
-#### Faithfulness
+#### Faithfulness (imp)
 - Measures whether the answer is consistent with the retrieved context.
-- Detects hallucinations.
-- High faithfulness means the answer stays grounded in the documents provided.
 
-#### Correctness
+#### Correctness (imp)
 - Measures whether the answer is factually correct, even if it differs from the retrieved context.
-- Useful when the LLM has enough prior knowledge to answer correctly without relying solely on retrieval.
+
+An answer can be scored low on faithfullness, but high on correctness. Meaning RAG didnt have right context for the question, but LLM was able to answer using its own knowledge.
 
 #### Context Recall
 - Evaluates whether the retriever fetched the relevant documents.
