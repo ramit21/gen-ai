@@ -189,7 +189,58 @@ n8n is a low-code Workflow Automation tool. In 2026, n8n added a dedicated AI Ag
 Use n8n when you main challenge is integrations and connectivities than LLM reasoning. 
 
 LangGraph on the other half is a code-first framework (built on top of LangChain). Its primary job is to manage complex reasoning loops.
+---
+## CrewAI vs LangGraph
 
+### CrewAI
+
+CrewAI is a framework for building agentic AI systems using a role‑based orchestration model.
+
+#### Key Concepts
+- Agents defined via YAML (roles, goals, tools)
+- Tasks defined declaratively
+- Orchestration is simple and configuration‑driven
+
+#### Strengths
+- Very easy to get started
+- Good for small to medium multi‑agent workflows
+- Minimal boilerplate and fast prototyping
+
+#### Limitations
+- Less customizable for complex flows
+- Harder to express rich state machines or DAG‑style workflows
+- Limited control over detailed agent state transitions
+
+
+### LangGraph
+
+LangGraph is a state machine / DAG‑based orchestration framework for building robust agent systems.
+
+#### Key Concepts
+- Nodes represent functions or agent steps
+- Edges define transitions between nodes
+- State is explicit and can be typed
+- Supports branching, retries, memory, and tool usage
+
+#### Strengths
+- Very flexible and expressive
+- Suitable for production‑grade orchestration
+- Fine‑grained control over agent behavior and flow
+- Works well with complex RAG + tool‑use pipelines
+
+#### Limitations
+- Steeper learning curve
+- Requires more code and design upfront
+
+
+### Summary: CrewAI vs LangGraph
+
+| System   | Mental Model              | Best For                      | Customization | Complexity   |
+|----------|---------------------------|-------------------------------|---------------|--------------|
+| CrewAI   | Role‑based agents + YAML  | Quick multi‑agent prototypes  | Low–Medium    | Low          |
+| LangGraph| State machine / DAG       | Production agent systems      | High          | Medium–High  |
+
+------
 ## Token limitation
 
 If input and output combined token counts exceeds token limit then LLM errors out. 
@@ -300,7 +351,47 @@ These methods leverage the power of dense vector representations of words, sente
 
 ### Evaluation tools
 OpenAI Evals, Ragas (for evaluating RAGs), LangSmith (monitor LLM application), Hugging Face Evaluate, EleutherAI LM Evaluation Harness
-----------------------------
+---
+
+## RAGAS — Evaluating RAG Systems
+
+### Overview
+
+RAGAS is a framework for evaluating Retrieval‑Augmented Generation (RAG) systems.  
+It focuses on how well a system retrieves context and how faithfully the LLM uses that context when generating answers.
+
+
+### Key Metrics
+
+#### Faithfulness
+- Measures whether the answer is consistent with the retrieved context.
+- Detects hallucinations.
+- High faithfulness means the answer stays grounded in the documents provided.
+
+#### Correctness
+- Measures whether the answer is factually correct, even if it differs from the retrieved context.
+- Useful when the LLM has enough prior knowledge to answer correctly without relying solely on retrieval.
+
+#### Context Recall
+- Evaluates whether the retriever fetched the relevant documents.
+- High recall means the retriever successfully found the information needed.
+
+#### Context Precision
+- Measures how much of the retrieved content was actually useful.
+- High precision means the retriever did not bring unnecessary or irrelevant documents.
+
+#### Answer Relevance
+- Measures whether the answer aligns with the user’s intent and question.
+- Helps detect answers that are correct but not relevant.
+
+
+### Why RAGAS Matters
+
+- Helps debug retrieval quality (embeddings, chunking, retriever choice).
+- Helps measure hallucinations and grounding.
+- Useful for comparing different RAG configurations and pipelines.
+- Provides quantitative metrics for improving RAG systems over time.
+---
 ## Development using LLM
 
 You can access LLM models either via the internet by paid subscriptions, or by deploying open-source models like lama3 locally. Web environments like Google Colab and Lightning Studio allow you to access GPUs with pay-as-you-go model. You can access open-source models via HuggingFace, Groq, or Ollama.
@@ -621,6 +712,84 @@ A good youtube video by Krish Naik: https://www.youtube.com/watch?v=RN3baOpNA6w
 ## LLMOps
 [📘 LLM OPS](./llmOps.md)
 ----------------------------
+## Running LLMs Locally
+
+### Ollama
+
+Ollama is a lightweight local model server that exposes LLMs through a simple CLI and a local HTTP API.
+
+#### Key Points
+- Supports GGUF models only
+- GGUF models can be downloaded from Hugging Face or converted from other formats
+- Example usage:
+  - `ollama run llama3`
+- Handles model loading, caching, and GPU/CPU scheduling
+
+#### Strengths
+- Very easy to set up
+- Ideal when you want a local OpenAI‑style endpoint
+- Multiple apps can call the same local model server
+
+#### Limitations
+- GGUF‑only
+- Less control over fine‑tuning and tokenizer internals
+
+---
+
+### Groq
+
+Groq is cloud‑based but often compared because it delivers extremely fast inference.
+
+#### Key Points
+- Uses custom LPU hardware for ultra‑fast inference
+- Provides an OpenAI‑compatible API
+- No local hardware requirements
+
+#### Strengths
+- Very high throughput and low latency
+- Good for production workloads that need speed
+
+#### Limitations
+- Not offline
+- You don’t control the underlying model weights
+
+---
+
+### Hugging Face Transformers
+
+Hugging Face Transformers is the most flexible way to run models inside your Python process.
+
+#### How It Works
+
+You reference a model by name, and Transformers handles downloading and loading.
+
+Example:
+- `from transformers import pipeline`
+- `generator = pipeline("text-generation", model="meta-llama/Llama-3-8B")`
+- `result = generator("What is Python?", max_length=100)`
+
+#### Under the Hood
+- First run downloads model weights (often 4–16GB)
+- Subsequent runs load from local cache
+- Model is loaded inside your process memory, so:
+  - You need sufficient RAM/VRAM
+  - Each app typically loads its own copy unless you build a shared inference server
+
+#### Strengths
+- Full control over tokenizers, model internals, fine‑tuning (PEFT, LoRA), quantization (bitsandbytes, GPTQ), and acceleration (accelerate, Flash‑Attention)
+- Works with many model formats, not just GGUF
+- Huge ecosystem and community
+
+#### Limitations
+- Heavy on system resources
+- More setup and configuration complexity
+- You manage GPU/CPU memory and performance yourself
+
+#### When to Choose HF Transformers
+- You want maximum control over the model
+- You want the model embedded directly in your Python code
+- You’re building custom RAG pipelines, fine‑tuning workflows, or doing research/experimentation
+
 ## Ollama
 [📘 View the full Ollama Course](./ollama.md)
 ----------------------------
