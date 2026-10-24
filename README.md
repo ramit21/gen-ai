@@ -76,9 +76,14 @@ Popular LLMOps tools: Google cloud vertex AI, Databricks, Valohi, Ollama, BentoM
 2. Model auditing: auditing the model before public release.
 3. Application auditing: assess the risk based on user utilisation. 
 
-**MOE vs MOE models**
+**MOE vs Dense models**
 
 Mixture-of-Experts (MoE) models offer high-efficiency, fast-inference performance by activating only a subset of parameters per token, whereas dense models activate all parameters for every input. Eg of MOE: Gemma4, eg. of dense: Qwen3.5 models.
+
+Because MoE models have huge total parameter counts (even though only a fraction are active at a given moment), they still require a massive amount of VRAM/memory just to be loaded into memory.
+
+To solve this, developers quantize MoE models:
+Example: DeepSeek-R1 or Mixtral 8x7B are MoE models.
 
 **VRAM vs RAM**
 
@@ -98,7 +103,7 @@ OWASP has come up with top 10 vunerabilities for LLMs just like they have a list
 1. Prompt injection
 2. Sensitive info leakage
 3. Supply chain vulnerabilities: Third-party models, datasets, or plugins - each one is a potential attack vector. Read about LightLLM attack.
-4. System Prompt Leakage: By using role play; uses authoritative language to convince the model that they have the right to see the background code; asking model to give intermediate system instructions in a bse64 encoded output.
+4. System Prompt Leakage: By using role play; uses authoritative language to convince the model that they have the right to see the background code; asking model to give intermediate system instructions in a base64 encoded output.
 ----------------------------
 
 ## Types of Gen AI models
@@ -133,9 +138,9 @@ Also, the use of Agents can be flaky - different answers to same query.
 
 Agent router is used to send different user inputs to different agents based on description fields..
 
-**Langchain Tools**: These expoe common functions which are supported by most LLM models. 
+**Langchain Tools**: These expose common functions which are supported by most LLM models. 
 Before Langchain tools, one had to call LLM vendor specific functions.
-Lanchain tools help abstract it, and calls the underlying model's API as per the implementation. Helps save lot of code with Langchain.
+Lanchain tools help abstract it, and calls the underlying model's API as per the implementation. Helps save a lot of code with Langchain.
 
 **Tavily**: Tavily is primarily designed as a search engine for Large Language Models (LLMs) and AI agents, providing real-time, accurate search results and information retrieval. Tavily is optimised for RAGs and integrates very well with LangChain.
 
@@ -188,7 +193,8 @@ n8n is a low-code Workflow Automation tool. In 2026, n8n added a dedicated AI Ag
 
 Use n8n when you main challenge is integrations and connectivities than LLM reasoning. 
 
-LangGraph on the other half is a code-first framework (built on top of LangChain). Its primary job is to manage complex reasoning loops.
+LangGraph on the other side is a code-first framework (built on top of LangChain). Its primary job is to manage complex reasoning loops.
+
 ---
 ## CrewAI vs LangGraph
 
@@ -355,6 +361,7 @@ OpenAI Evals, Ragas (for evaluating RAGs), LangSmith (monitor LLM application), 
 Langfuse is open source alternative to Langsmith. @observe annotation is put on method to track.
 
 Logfire: By Pydantic library makers, based on OTEL. While Langfuse traces LLM calls, chains and agents, Logfire is end to end app monitoring tool (even includes SQL queries fired under the hood in a given span). Langfuse best integration is with Langgraph, while Logfire is for heavy use of ython applciations, specifically Pydantic AI.
+
 ---
 
 ## RAGAS — Evaluating RAG Systems
@@ -399,6 +406,7 @@ An answer can be scored low on faithfullness, but high on correctness. Meaning R
 ## Development using LLM
 
 You can access LLM models either via the internet by paid subscriptions, or by deploying open-source models like lama3 locally. Web environments like Google Colab and Lightning Studio allow you to access GPUs with pay-as-you-go model. You can access open-source models via HuggingFace, Groq, or Ollama.
+
 ----------------------------
 
 ## AI Agents vs Agentic AI
@@ -407,7 +415,7 @@ An AI agent can be zero-shot, few-shot (when the agent asks questions to gather 
 
 Agentic AI refers to an architectural framework or a system that exhibits high-level "agency." It coordinates multiple agents and tools to achieve a broad, complex goal. It is proactive. eg. Agentic AI.
 
-In simple words, Agent = LLM + Harness, where LLM is the brain, HArness is the doer. A harness provides:
+In simple words, Agent = LLM + Harness, where LLM is the brain, Harness is the doer. A harness provides:
 
 1. **Planning**: The ability to break down large tasks into smaller, manageable sub-goals (e.g., Reflection, Chain-of-Thought, or Tree-of-Thoughts). 
 **ReAct** (Reasoning + Acting) paradigm is used to drive **"Agentic loops"**: Reason -> Select -> Execute -> Repeat
@@ -529,7 +537,7 @@ such as medical codes, legal citations, part numbers, or financial tickers where
 tools are Elasticsearch and OpenSearch.
 
 2.2. Graph RAG (KG Traversal): Graph RAG stores knowledge as a property graph (nodes = entities, edges = relationships) and retrieves information via
-graph traversal rather than similarity search. ie Search is performed based on bath and not cosine similarity. Eg. Neo4j, GraphRag.
+graph traversal rather than similarity search. ie Search is performed based on path and not cosine similarity. Eg. Neo4j, GraphRag.
 
 2.3. SQL RAG (Text to SQL): The LLM translates a natural-language question into SQL, executes it
 against a relational database, and uses the result as context for its final answer.
@@ -592,7 +600,7 @@ Faiss is good for fast retrieval speed, Chromadb is a more complete db with more
 4. **Reranking**: After similarity search retrieval from RAG, use LLM or a Cross Encoder to re-rank the results.
 5. **Feedback Loop**: User feedback is taken on the generated output. The vector store is frequently updated as per user feedback.
 6. **Adaptive RAG system**: adapt the retrieval strategy based on the type of query. By leveraging Language Models (LLMs) at various stages, we can provide more accurate and relevant information to users. Apply different retreival based on prompt intention: factual, analytical, opinion, contextual (user input). 
-7. **Cost reduction**: Regularly delete stale data to save on retieval costs. Cache frequent queries and RAG responses in Redis.
+7. **Cost reduction**: Regularly delete stale data to save on retrieval costs. Cache frequent queries and RAG responses in Redis Semantic cache.
 
 ### ReBAC - Relationship based access control
 
@@ -712,9 +720,11 @@ print(response)
 
 ```
 A good youtube video by Krish Naik: https://www.youtube.com/watch?v=RN3baOpNA6w
+
 ----------------------------
 ## LLMOps
 [📘 LLM OPS](./llmOps.md)
+
 ----------------------------
 ## Running LLMs Locally
 
@@ -796,9 +806,11 @@ Example:
 
 ## Ollama
 [📘 View the full Ollama Course](./ollama.md)
+
 ----------------------------
 ## GenAI for Coding
 [📘 Use of GenAI for coding Course](./GenAI_for_Coding_Course.md)
+
 ----------------------------
 ## Langraph POC
 https://github.com/ramit21/langraph-coder-buddy
