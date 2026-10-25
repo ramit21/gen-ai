@@ -46,9 +46,6 @@ Transitioning to AgentCore is essential for banking-grade reliability:
 > **The Takeaway:** Use Swagger Action Groups for your **MVP (Minimum Viable Product)** to prove the concept. Move to **AgentCore** when you need to enforce architectural standards, handle long-running workflows, and ensure long-term memory for a seamless developer experience.
 
 
----
----
-
 ## Developing with Bedrock AgentCore (Python)
 
 In this lesson, we move from "Instruction-based" agents to "Code-based" agents using the **AgentCore SDK**. This allows us to use standard libraries like LangChain while benefiting from AWS managed infrastructure.
@@ -103,8 +100,6 @@ Strands is for when the task is too complex to map out manually, and you want to
 
 LangGraph is for when you don't trust the AI to make the right decision and you want to "hand-hold" every step. You can still use Strands utility methods even when using Langraph.
 
----
-
 ### Steps to Deploy to AWS AgentCore:
 
 1.  **Containerize:** AgentCore agents run as containers. Create a `Dockerfile` using the `public.ecr.aws/agentcore/python:3.11` base image.
@@ -117,3 +112,14 @@ LangGraph is for when you don't trust the AI to make the right decision and you 
 5.  **Assign IAM Roles:** Ensure the agent has the `AgentCoreRuntimeExecution` role to allow it to read/write to its own Memory store.
 6.  **Alias & Deploy:** Create an 'Alias' (e.g., `prod` or `dev`) to get a permanent ARN/URL for your agent.
 
+## Observability
+AgentCore provides observability via cloudwatch by default. No need of integrating Langsmith, Opik etc.
+
+## RAG with AgetnCore
+While FAISS is good for local POC, for production grade app deployed on Agentcore leverage these for RAG:
+
+1. Amazon S3 Vectors / Bedrock Knowledge Bases: Fully serverless, incredibly cheap for storage, and native to AWS.   
+2. Amazon OpenSearch Serverless / Aurora pgvector: Best if you need low-latency, real-time vector lookups with complex filtering
+
+## Resources
+1. Agentcore features: https://www.youtube.com/watch?v=cTBGIKAckKE
