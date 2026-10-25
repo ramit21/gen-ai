@@ -462,7 +462,7 @@ An answer can be scored low on faithfullness, but high on correctness. Meaning R
 - CI/CD: On every Pull Request (PR) that modifies your RAG prompts, vector database configuration, chunking strategies, or model weights. If score falls below acceptable metrics, eg. faithfulness < 0.9, break the build.
 - As a scheduled background job in your cloud infrastructure (e.g., Kubernetes CronJob, AWS Lambda, or Apache Airflow)
 - Continuous Asynchronous Shadow Evaluation (For Agentic Cores) 
-- Real user queries flow through your Agentic Core.
+- Real user queries flow through your Agentic Core (where an agent might loop, call multiple tools, and fetch multi-step context).
 An event stream (e.g., Kafka, AWS SQS) mirrors the input, retrieved context, and agent output to a background worker.
 The worker selectively evaluates a percentage of live traffic using Ragas to catch sudden hallucinations or prompt regressions in real time without blocking the user response.  
 
