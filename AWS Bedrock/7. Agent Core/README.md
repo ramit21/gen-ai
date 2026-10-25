@@ -115,11 +115,30 @@ LangGraph is for when you don't trust the AI to make the right decision and you 
 ## Observability
 AgentCore provides observability via cloudwatch by default. No need of integrating Langsmith, Opik etc.
 
-## RAG with AgetnCore
+## RAG with AgentCore
 While FAISS is good for local POC, for production grade app deployed on Agentcore leverage these for RAG:
 
 1. Amazon S3 Vectors / Bedrock Knowledge Bases: Fully serverless, incredibly cheap for storage, and native to AWS.   
 2. Amazon OpenSearch Serverless / Aurora pgvector: Best if you need low-latency, real-time vector lookups with complex filtering
+
+Note that no vector database natively "understands" complex ReBAC out of the box (like OpenFGA, SpiceDB, or AWS Verified Permissions graphs—e.g., "User is in Group A, which owns Folder B, which contains Document C").
+
+To implement ReBAC, your application must bridge the gap: it queries your authorization/ReBAC engine first to resolve what the user can access, and then translates that graph relationship into a metadata filter passed directly into the vector search query.
+
+pgvector support an additional feature of **RLS** - Row level security.
+
+The Setup: Store your chunk metadata (including allowed tenant IDs, user IDs, or role arrays) directly alongside the embedding vector in the table.   
+
+The Enforcement: Use Postgres RLS policies or dynamically inject security parameters into your similarity search query.
+
+```
+-- Example: Enforcing allowed groups via a metadata JSONB field or array
+SELECT content, embedding 
+FROM document_chunks 
+WHERE allowed_groups && ARRAY['hr-team', 'exec-level'] -- User's resolved groups
+ORDER BY embedding <=> query_vector 
+LIMIT 5;
+```
 
 ## Resources
 1. Agentcore features: https://www.youtube.com/watch?v=cTBGIKAckKE
