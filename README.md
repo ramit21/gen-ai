@@ -372,6 +372,61 @@ RAGAS is a framework for evaluating Retrieval‑Augmented Generation (RAG) syste
 It focuses on how well a system retrieves context and how faithfully the LLM uses that context when generating answers.
 
 4 main compnents for running an evaluation: Input prompt, Ground truth (expected answer), retrieved context (from RAG), final generated answer.
+All 4 are then used to create a Dataset and fed to ragas evaluate method, which also points to a LLM used to evaluate. 
+
+Sample code:
+
+```
+from datasets import Dataset
+from ragas import evaluate
+from ragas.metrics import answer_relevancy, faithfulness
+
+# --- Assume these helper functions exist in your codebase ---
+# def retrieve_context(query: str) -> list[str]: ...
+# def generate_answer(query: str, contexts: list[str]) -> str: ...
+
+# 1. Input arrays
+questions = ["What is the capital of France?", "What is RAG?"]
+ground_truths = [
+    "Paris is the capital of France.",
+    "Retrieval-Augmented Generation enhances LLMs with external data.",
+]
+
+# 2. Loop through and collect evaluation data
+data = {"question": [], "answer": [], "contexts": [], "ground_truth": []}
+
+for q, gt in zip(questions, ground_truths):
+  # Retrieve relevant context snippets
+  retrieved_contexts = retrieve_context(q)
+
+  # Generate the answer using your RAG pipeline
+  generated_answer = generate_answer(q, retrieved_contexts)
+
+  # Append to dataset dictionary
+  data["question"].append(q)
+  data["answer"].append(generated_answer)
+  data["contexts"].append(retrieved_contexts)
+  data["ground_truth"].append(gt)
+
+# 3. Convert into a Hugging Face Dataset (required by Ragas)
+dataset = Dataset.from_dict(data)
+
+# 4. Configure your LLM/Embeddings for Ragas (if using custom LLMs)
+# Ragas automatically picks up OPENAI_API_KEY from environment variables,
+# but you can also explicitly pass custom LLM wrappers if needed.
+
+# 5. Run evaluation
+results = evaluate(
+    dataset=dataset,
+    metrics=[
+        faithfulness,
+        answer_relevancy,
+    ],  # Add other metrics like context_precision as needed
+)
+
+# Print evaluation score summary
+print(results)
+```
 
 ### Key Metrics
 
@@ -445,6 +500,48 @@ This action changes the Environment (e.g., updates a database, runs a script, or
 The Sensors detect that change in the environment and pull in the new data (Observation).
 
 This feedback drives the agent to adjust its next thought and move closer to the correct response.
+
+### Harness vs Loop engineering
+Harness Engineering: The secure environment, scaffolding, and capabilities provided to the AI agent (such as tools, file system access, and sandboxed terminals).
+
+Loop Engineering: The control logic you code to make the agent execute actions, check if its end state is reached, pause for human-in-the-loop, and enforce hard iteration limits to prevent infinite recursion.
+
+Sample loop engineering code:
+```
+# Loop Engineering: Core Control Logic
+
+goal = "Fix the bug in the code and pass all tests"
+max_iterations = 5  # Safety bound to prevent infinite recursion
+current_loop = 0
+history = []
+
+while current_loop < max_iterations:
+  current_loop += 1
+
+  # 1. ACTION: Agent performs a task (e.g., writes code or calls a tool)
+  action = agent.decide_next_step(goal, history)
+  result = execute_tool(action)
+
+  # 2. VERIFICATION: Check if the final success condition is met
+  success, feedback = check_if_end_state_reached(result)
+  if success:
+    print("Goal achieved! Ending loop.")
+    break
+
+  # 3. HUMAN-IN-THE-LOOP (Optional): Pause if a risky step or low confidence
+  if agent.is_uncertain() or is_high_risk(action):
+    human_approval = ask_human(f"Approve this action? {action}")
+    if not human_approval:
+      print("Stopped by human.")
+      break
+
+  # 4. ITERATE: Feed results back into history for the next pass
+  history.append({"action": action, "result": result, "feedback": feedback})
+
+else:
+  # Triggered if the while loop finishes without breaking
+  print("Max iterations reached. Aborting to prevent infinite loop.")
+```
 
 ### Sub Agents vs Agent teams
 An agent can spin up multiple sub-agents for parallel processing, and block till all sub agents complete their processing. Each agent/subagent get their own context, tools, memory, and instructions to perfrom a job.
