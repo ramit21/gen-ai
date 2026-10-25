@@ -142,3 +142,4 @@ LIMIT 5;
 
 ## Resources
 1. Agentcore features: https://www.youtube.com/watch?v=cTBGIKAckKE
+2. Agentcore docker images: 

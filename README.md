@@ -693,6 +693,37 @@ A. Faiss/Chromadb is good for local development, data saved in files on disk. Go
 
 Faiss is good for fast retrieval speed, Chromadb is a more complete db with more features, eg. metadata based queries: "find similar documents, but only from PDF files uploaded in May," Chroma does this natively. 
 
+Q. How are RAG store kept updated?
+Ans. 3 approaches:
+1. **Incremental Updates via Upserts & Deletes** (The Standard Approach)Vector databases (like pgvector, OpenSearch, Pinecone, Qdrant) support unique record IDs. When a source document changes, you only process that specific file:Added / Updated Document: Your pipeline splits the new/modified document into chunks, generates embeddings only for those new chunks, and calls upsert() using deterministic IDs (e.g., doc_123_chunk_2). If the ID already exists, the database overwrites it instantly.Deleted Document: You issue a delete() command targeting the chunks associated with that document ID.
+2. **Change Data Capture (CDC) or Webhooks (Automated Syncing)**: Instead of batch scripts running blindly, modern systems sync data reactively: When a user updates a page in Confluence, a Google Drive file, or a PostgreSQL table, a webhook or CDC event triggers a lightweight background worker.The worker fetches only that delta (the modified file), re-chunks it, and upserts/deletes vectors in the database in real time.
+3. **Tools That Automate This (e.g., LangChain Indexing API)**: If you are using orchestration tools like LangChain, you don't even have to write the diff logic yourself. Tools like the LangChain Indexing API use a RecordManager under the hood:   It tracks content hashes of source documents in a separate table. When you sync your document loader, it automatically figures out what is new, what was updated, and what was deleted—writing only the changes to the vector store.
+
+When using LangChain's RecordManager, you must point it to a persistent SQL database (like PostgreSQL, MySQL, SQLite, or Aurora) where it can securely store and read those document hashes and sync metadata:
+```
+from langchain.indexes import SQLRecordManager, index
+
+# 1. Connect to a persistent database for tracking sync states
+# (This can be the same Postgres instance you use for pgvector, or a separate operational DB)
+record_manager = SQLRecordManager(
+    namespace="my_agent_kb/confluence_docs",
+    db_url="postgresql+psycopg2://user:password@rds-postgres-host:5432/rag_metadata",
+)
+
+# 2. Create the tracking table if it doesn't already exist
+record_manager.create_schema()
+
+# 3. Run the sync (LangChain automatically checks hashes here)
+output = index(
+    docs_source,
+    record_manager,
+    vectorstore,
+    cleanup="incremental",  # Automatically deletes missing docs
+    source_id_key="source",
+)
+```
+
+
 ### RAG techniques
 
  RAG techniques that help improve the performance of LLM applications:
