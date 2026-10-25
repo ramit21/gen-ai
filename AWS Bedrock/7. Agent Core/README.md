@@ -1,6 +1,6 @@
 # Agent Core
 
-While the **Swagger/Action Group** approach is excellent for rapid prototyping and simple task-matching, enterprise-grade applications (like Bankline) require a more robust, scalable, and secure framework. This lesson covers **Amazon Bedrock AgentCore**—the managed operations layer for "Prod-Grade" AI agents.
+While the **Swagger/Action Group** approach is excellent for rapid prototyping and simple task-matching, enterprise-grade applications require a more robust, scalable, and secure framework. This lesson covers **Amazon Bedrock AgentCore**—the managed operations layer for "Prod-Grade" AI agents.
 
 ## 1. The Limitations of Swagger-Based Agents
 In a production environment, the traditional Swagger/OpenAPI approach faces three primary hurdles:
