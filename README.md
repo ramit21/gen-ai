@@ -457,6 +457,15 @@ An answer can be scored low on faithfullness, but high on correctness. Meaning R
 - Helps measure hallucinations and grounding.
 - Useful for comparing different RAG configurations and pipelines.
 - Provides quantitative metrics for improving RAG systems over time.
+
+### Strategies to RAGAS run in production
+- CI/CD: On every Pull Request (PR) that modifies your RAG prompts, vector database configuration, chunking strategies, or model weights. If score falls below acceptable metrics, eg. faithfulness < 0.9, break the build.
+- As a scheduled background job in your cloud infrastructure (e.g., Kubernetes CronJob, AWS Lambda, or Apache Airflow)
+- Continuous Asynchronous Shadow Evaluation (For Agentic Cores) 
+- Real user queries flow through your Agentic Core.
+An event stream (e.g., Kafka, AWS SQS) mirrors the input, retrieved context, and agent output to a background worker.
+The worker selectively evaluates a percentage of live traffic using Ragas to catch sudden hallucinations or prompt regressions in real time without blocking the user response.  
+
 ---
 ## Development using LLM
 
