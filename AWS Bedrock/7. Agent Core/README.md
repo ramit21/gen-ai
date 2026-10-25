@@ -140,6 +140,11 @@ ORDER BY embedding <=> query_vector
 LIMIT 5;
 ```
 
+## Knowledge base
+Bedrock knowledge base supports more than 1 source eg. S3 vector store, Confluence page, etc. When doing for confluence, better to tag what pages you want to index, as old pages may not be relevant any more. For indexing other things not supported (eg. Jira, Gitlab code base), load, chunk and embed using langchain code and store in S3 vector store. Better to create different KBs for different sources and have your langraph route respective query to respective KB and LLM.
+
+S3 Vector store has buckets, which contain indices.
+
 ## Resources
 1. Agentcore features: https://www.youtube.com/watch?v=cTBGIKAckKE
 2. Agentcore docker images: 
